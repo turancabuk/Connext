@@ -11,7 +11,7 @@ import SwiftUI
 struct ConnextApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppTabView()
         }
     }
 }
