@@ -8,17 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		5C1BF8C02C601263005C7E2A /* ConnextApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */; };
-		5C1BF8C22C601263005C7E2A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8C12C601263005C7E2A /* ContentView.swift */; };
 		5C1BF8C42C601263005C7E2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1BF8C32C601263005C7E2A /* Assets.xcassets */; };
 		5C1BF8C72C601263005C7E2A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1BF8C62C601263005C7E2A /* Preview Assets.xcassets */; };
+		5C1BF8CF2C60CCA0005C7E2A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8CE2C60CCA0005C7E2A /* Color+Ext.swift */; };
+		5C1BF8D12C60CD67005C7E2A /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8D02C60CD67005C7E2A /* AppTabView.swift */; };
+		5C1BF8D32C60D13D005C7E2A /* LocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8D22C60D13D005C7E2A /* LocationMapView.swift */; };
+		5C1BF8D52C60D158005C7E2A /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8D42C60D158005C7E2A /* LocationsListView.swift */; };
+		5C1BF8D72C60D16F005C7E2A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8D62C60D16F005C7E2A /* ProfileView.swift */; };
+		5C1BF8D92C6110AA005C7E2A /* LocationsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5C1BF8BC2C601263005C7E2A /* Connext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connext.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnextApp.swift; sourceTree = "<group>"; };
-		5C1BF8C12C601263005C7E2A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5C1BF8C32C601263005C7E2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C1BF8C62C601263005C7E2A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5C1BF8CD2C60B75C005C7E2A /* Connext.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Connext.entitlements; sourceTree = "<group>"; };
+		5C1BF8CE2C60CCA0005C7E2A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
+		5C1BF8D02C60CD67005C7E2A /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
+		5C1BF8D22C60D13D005C7E2A /* LocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapView.swift; sourceTree = "<group>"; };
+		5C1BF8D42C60D158005C7E2A /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
+		5C1BF8D62C60D16F005C7E2A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +62,16 @@
 		5C1BF8BE2C601263005C7E2A /* Connext */ = {
 			isa = PBXGroup;
 			children = (
+				5C1BF8CD2C60B75C005C7E2A /* Connext.entitlements */,
 				5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */,
-				5C1BF8C12C601263005C7E2A /* ContentView.swift */,
 				5C1BF8C32C601263005C7E2A /* Assets.xcassets */,
 				5C1BF8C52C601263005C7E2A /* Preview Content */,
+				5C1BF8CE2C60CCA0005C7E2A /* Color+Ext.swift */,
+				5C1BF8D02C60CD67005C7E2A /* AppTabView.swift */,
+				5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */,
+				5C1BF8D22C60D13D005C7E2A /* LocationMapView.swift */,
+				5C1BF8D42C60D158005C7E2A /* LocationsListView.swift */,
+				5C1BF8D62C60D16F005C7E2A /* ProfileView.swift */,
 			);
 			path = Connext;
 			sourceTree = "<group>";
@@ -137,8 +154,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C1BF8C22C601263005C7E2A /* ContentView.swift in Sources */,
 				5C1BF8C02C601263005C7E2A /* ConnextApp.swift in Sources */,
+				5C1BF8D32C60D13D005C7E2A /* LocationMapView.swift in Sources */,
+				5C1BF8D52C60D158005C7E2A /* LocationsListView.swift in Sources */,
+				5C1BF8D92C6110AA005C7E2A /* LocationsDetailView.swift in Sources */,
+				5C1BF8D12C60CD67005C7E2A /* AppTabView.swift in Sources */,
+				5C1BF8D72C60D16F005C7E2A /* ProfileView.swift in Sources */,
+				5C1BF8CF2C60CCA0005C7E2A /* Color+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +291,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Connext/Connext.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Connext/Preview Content\"";
@@ -298,6 +321,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Connext/Connext.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Connext/Preview Content\"";
