@@ -18,7 +18,6 @@ struct LocationMapView: View {
     var body: some View {
         ZStack{
             Map(coordinateRegion: $region)
-                .ignoresSafeArea()
             
             VStack {
                 Image("connext.transparent")
