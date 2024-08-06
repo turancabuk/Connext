@@ -68,9 +68,9 @@
 				5C1BF8C52C601263005C7E2A /* Preview Content */,
 				5C1BF8CE2C60CCA0005C7E2A /* Color+Ext.swift */,
 				5C1BF8D02C60CD67005C7E2A /* AppTabView.swift */,
-				5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */,
 				5C1BF8D22C60D13D005C7E2A /* LocationMapView.swift */,
 				5C1BF8D42C60D158005C7E2A /* LocationsListView.swift */,
+				5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */,
 				5C1BF8D62C60D16F005C7E2A /* ProfileView.swift */,
 			);
 			path = Connext;
