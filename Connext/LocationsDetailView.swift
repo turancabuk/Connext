@@ -13,6 +13,7 @@ struct LocationsDetailView: View {
                    GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100))]
     
+    let label: String = "hello"
     var body: some View {
         NavigationView {
             VStack{
