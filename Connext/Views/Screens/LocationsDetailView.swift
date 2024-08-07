@@ -108,11 +108,7 @@ struct UsersView: View {
         LazyVGrid(columns: columns, content: {
             ForEach(0..<7) { _ in
                 VStack {
-                    Image("person")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 48)
-                        .cornerRadius(.infinity)
+                    AvatarView(size: 48)
                     Text("user name")
                         .bold()
                         .lineLimit(1)
