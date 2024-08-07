@@ -9,16 +9,22 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @State var bio: String    = "selamlar"
-    
     var body: some View {
-        VStack{
-            PersonalInfoView()
-            DescriptionView(bio: bio)
-            BioView(bio: bio)
+        NavigationView{
+            VStack{
+                PersonalInfoView()
+                DescriptionView()
+                HStack {
+                    ConnextButton(title: "Create Profile", width: 280, height: 50, cornerRadius:20)
+                        .padding(.bottom, 16)
+                        .navigationTitle("Profile")
+                        .navigationBarTitleDisplayMode(.large)
+                }
+            }
         }
     }
 }
+
 struct PersonalInfoView: View {
     
     @State private var name: String         = ""
@@ -33,11 +39,7 @@ struct PersonalInfoView: View {
                 .cornerRadius(24)
             HStack {
                 ZStack {
-                    Image("person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 92, height: 92)
-                        .cornerRadius(.infinity)
+                    AvatarView(size: 92)
                         .padding(.horizontal, 12)
                     Image(systemName: "square.and.pencil")
                         .resizable()
@@ -60,9 +62,10 @@ struct PersonalInfoView: View {
         .padding(.horizontal, 8)
     }
 }
+
 struct DescriptionView: View {
     
-    let bio: String
+    @State var bio: String    = "selamlar"
     
     var body: some View {
         HStack {
@@ -90,31 +93,11 @@ struct DescriptionView: View {
         }
         .padding(.horizontal, 4)
         .padding()
-    }
-}
-struct BioView: View {
-    
-    @State var bio: String
-    
-    var body: some View {
-        VStack{
-            TextEditor(text: $bio)
-                .frame(height: 100, alignment: .center)
-                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary, lineWidth: 1))
-                .padding(.horizontal)
-        }
+        TextEditor(text: $bio)
+            .frame(height: 100, alignment: .center)
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary, lineWidth: 1))
+            .padding(.horizontal)
         Spacer()
-        HStack {
-            Button(action: {}, label: {
-                Text("Create Profile")
-                    .bold()
-                    .frame(width: 280, height: 50)
-                    .foregroundColor(.white)
-                    .background(.brandPrimary)
-                    .cornerRadius(20)
-                    .padding(.bottom, 16)
-            })
-        }
     }
 }
 #Preview {
