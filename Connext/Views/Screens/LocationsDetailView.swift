@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LocationsDetailView: View {
     
+    var location: Location
     let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100))]
@@ -17,23 +18,26 @@ struct LocationsDetailView: View {
     var body: some View {
         NavigationView {
             VStack{
-                BannerView()
-                BuildInformationView()
+                BannerView(location: location)
+                BuildInformationView(location: location)
                 UsersView(columns: columns)
             }
         }
-        .navigationBarTitle("personel name")
+        .navigationBarTitle(location.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 struct BannerView: View {
+    
+    var location: Location
+    
     var body: some View {
         Image("connext.banner")
             .resizable()
             .scaledToFill()
             .frame(height: 120)
         HStack{
-            Label("123 Sample adress", systemImage: "mappin.and.ellipse")
+            Label(location.adress, systemImage: "mappin.and.ellipse")
                 .foregroundColor(.gray)
                 .padding(.vertical, 6)
                 .padding(.leading, 16)
@@ -45,8 +49,11 @@ struct BannerView: View {
     }
 }
 struct BuildInformationView: View {
+    
+    var location: Location
+    
     var body: some View {
-        Text("Sample Build Review")
+        Text(location.description)
             .lineLimit(3)
             .minimumScaleFactor(0.75)
             .padding(.vertical)
@@ -60,7 +67,7 @@ struct BuildInformationView: View {
                 }label: {
                     LocationActionButton(color: .brandPrimaryColor, imageName: "location.fill")
                 }
-                Link(destination: URL(string: "https://www.apple.com")!, label: {
+                Link(destination: URL(string: location.websiteURL)!, label: {
                     LocationActionButton(color: .brandPrimaryColor, imageName: "network")
                 })
                 Button{
@@ -120,5 +127,5 @@ struct UsersView: View {
     }
 }
 #Preview {
-    LocationsDetailView()
+    LocationsDetailView(location: Location(record: MockData.location))
 }

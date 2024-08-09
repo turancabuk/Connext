@@ -23,14 +23,14 @@ struct Location {
     let ckRecordID: CKRecord.ID
     
     init(record: CKRecord) {
-        ckRecordID = record.recordID
-        adress = record[Location.kAdress] as? String ?? "N/A"
+        ckRecordID  = record.recordID
+        adress      = record[Location.kAdress] as? String ?? "N/A"
         description = record[Location.kDescription] as? String ?? "N/A"
-        name = record[Location.kName] as? String ?? "N/A"
+        name        = record[Location.kName] as? String ?? "N/A"
         phoneNumber = record[Location.kPhoneNumber] as? String ?? "N/A"
-        websiteURL = record[Location.kWebsiteURL] as? String ?? "N/A"
+        websiteURL  = record[Location.kWebsiteURL] as? String ?? "N/A"
         bannerAsset = record[Location.kBannerAsset] as? CKAsset
         squareAsset = record[Location.kSquareAsset] as? CKAsset
-        location = record[Location.kLocation] as? CLLocation ?? CLLocation(latitude: 0, longitude: 0)
+        location    = record[Location.kLocation] as? CLLocation ?? CLLocation(latitude: 0, longitude: 0)
     }
 }
