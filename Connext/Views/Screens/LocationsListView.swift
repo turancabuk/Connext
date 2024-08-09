@@ -10,6 +10,7 @@ import SwiftUI
 struct LocationsListView: View {
     
     @State private var location: [Location] = [Location(record: MockData.location)]
+    
     var body: some View {
         NavigationView{
             List{
