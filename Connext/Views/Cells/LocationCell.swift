@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct LocationCell: View {
+    
+    var location: Location
+    
     var body: some View{
         HStack{
             AvatarView(size: 80)
             Spacer()
             VStack(alignment: .leading){
-                Text("Sample Location Title")
+                Text(location.name)
                     .font(.title2)
                     .fontWeight(.semibold)
                     .lineLimit(1)
@@ -29,5 +32,5 @@ struct LocationCell: View {
     }
 }
 #Preview {
-    LocationCell()
+    LocationCell(location: Location(record: MockData.location))
 }
