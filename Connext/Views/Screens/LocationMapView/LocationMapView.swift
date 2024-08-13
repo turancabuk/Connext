@@ -9,12 +9,15 @@ import SwiftUI
 import MapKit
 
 struct LocationMapView: View {
-    
+    @EnvironmentObject private var locationManager: LocationManager
     @StateObject private var viewModel = LocationMapViewModel()
     
     var body: some View {
-        ZStack{
-            Map(coordinateRegion: $viewModel.region )
+        ZStack {
+            Map(coordinateRegion: $viewModel.region, annotationItems: locationManager.locations) { location in
+                MapMarker(coordinate: location.location.coordinate, tint: .brandPrimaryColor)
+            }
+            .ignoresSafeArea()
             
             VStack {
                 Image("connext.transparent")
@@ -26,10 +29,12 @@ struct LocationMapView: View {
             }
         }
         .alert(item: $viewModel.alertItem, content: { alertItem in
-            Alert(title: Text(alertItem.text), message: Text(alertItem.message), dismissButton: alertItem.dismisButton)
+            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
         })
-        .onAppear{
-            viewModel.getLocations()
+        .onAppear {
+            if locationManager.locations.isEmpty {
+                viewModel.getLocations(for: locationManager)
+            }
         }
     }
 }

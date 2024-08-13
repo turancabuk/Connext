@@ -7,7 +7,7 @@
 
 import CloudKit
 
-struct Location {
+struct Location: Identifiable {
     static let kAdress = "adress"
     static let kDescription = "description"
     static let kName = "name"
@@ -15,22 +15,22 @@ struct Location {
     static let kWebsiteURL = "websiteURL"
     static let kBannerAsset = "bannerAsset"
     static let kSquareAsset = "squareAsset"
-    static let kLocation = "location"
+    static let kLocation = "Location"
 
     let adress, description, name, phoneNumber, websiteURL : String
     let bannerAsset, squareAsset: CKAsset!
     let location: CLLocation
-    let ckRecordID: CKRecord.ID
+    let id: CKRecord.ID
     
     init(record: CKRecord) {
-        ckRecordID  = record.recordID
-        adress      = record[Location.kAdress] as? String ?? "N/A"
-        description = record[Location.kDescription] as? String ?? "N/A"
+        id          = record.recordID
         name        = record[Location.kName] as? String ?? "N/A"
-        phoneNumber = record[Location.kPhoneNumber] as? String ?? "N/A"
-        websiteURL  = record[Location.kWebsiteURL] as? String ?? "N/A"
-        bannerAsset = record[Location.kBannerAsset] as? CKAsset
+        description = record[Location.kDescription] as? String ?? "N/A"
         squareAsset = record[Location.kSquareAsset] as? CKAsset
+        bannerAsset = record[Location.kBannerAsset] as? CKAsset
+        adress      = record[Location.kAdress] as? String ?? "N/A"
         location    = record[Location.kLocation] as? CLLocation ?? CLLocation(latitude: 0, longitude: 0)
+        websiteURL  = record[Location.kWebsiteURL] as? String ?? "N/A"
+        phoneNumber = record[Location.kPhoneNumber] as? String ?? "N/A"
     }
 }

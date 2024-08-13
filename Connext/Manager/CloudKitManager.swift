@@ -9,7 +9,7 @@ import CloudKit
 
 struct CloudKitManager {
     
-    static func getLocations(completed: @escaping(Result<[Location], Error>) -> Void) {
+    static func getLocations(completed: @escaping (Result<[Location], Error>) -> Void) {
         let sortDescriptor = NSSortDescriptor(key: Location.kName, ascending: true)
         let query = CKQuery(recordType: RecordType.location, predicate: NSPredicate(value: true))
         query.sortDescriptors = [sortDescriptor]
@@ -20,8 +20,8 @@ struct CloudKitManager {
                 return
             }
             
-            guard let records = records else {return}
-            let locations = records.map {$0.convertToLocation()}
+            guard let records = records else { return }
+            let locations = records.map { $0.convertToLocation() }
             completed(.success(locations))
         }
     }
