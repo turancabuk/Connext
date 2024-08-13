@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ConnextApp: App {
+    
+    let locationManager = LocationManager()
+    
     var body: some Scene {
         WindowGroup {
-            AppTabView()
+            AppTabView().environmentObject(locationManager)
         }
     }
 }
+
