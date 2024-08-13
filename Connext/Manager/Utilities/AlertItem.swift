@@ -9,12 +9,15 @@ import SwiftUI
 
 struct AlertItem: Identifiable {
     let id = UUID()
-    let text: String
-    let message: String
-    let dismisButton: Alert.Button
+    let title: Text
+    let message: Text
+    let dismissButton: Alert.Button
 }
 
-// MARK: - LocationMapView alert.
 struct AlertContext {
-    static let unableToGetLocation = AlertItem(text: "Location Error!", message: "Please try again.", dismisButton: .default(Text("ok")))
+    
+    //MARK: - MapView Errors
+    static let unableToGetLocations = AlertItem(title: Text("Locations Error"),
+                                                message: Text("Unable to retrieve locations at this time.\nPlease try again."),
+                                                dismissButton: .default(Text("Ok")))
 }

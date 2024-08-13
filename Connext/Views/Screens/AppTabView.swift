@@ -13,17 +13,21 @@ struct AppTabView: View {
             LocationMapView()
                 .tabItem {
                     Label("Map", systemImage: "map")
-                }            
+                }
+            
             LocationsListView()
                 .tabItem {
-                    Label("Locations", systemImage: "building.2.crop.circle")
+                    Label("Locations", systemImage: "building")
                 }
-            ProfileView()
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
+            
+            NavigationView {
+                ProfileView()
+            }
+            .tabItem {
+                Label("Profile", systemImage: "person")
+            }
         }
-        .accentColor(Color.brandPrimary)
+        .accentColor(.brandPrimary)
     }
 }
 #Preview {
