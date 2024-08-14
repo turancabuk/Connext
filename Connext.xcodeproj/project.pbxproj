@@ -56,6 +56,7 @@
 		5C844A642C6682B10063B3E4 /* LocationMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewModel.swift; sourceTree = "<group>"; };
 		5C844A662C6A06E80063B3E4 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKAsset+Ext.swift"; sourceTree = "<group>"; };
+		5CBF361E2C6CCA8E00B5C6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +89,7 @@
 		5C1BF8BE2C601263005C7E2A /* Connext */ = {
 			isa = PBXGroup;
 			children = (
+				5CBF361E2C6CCA8E00B5C6CB /* Info.plist */,
 				5C844A592C6623E90063B3E4 /* Manager */,
 				5C844A512C6534250063B3E4 /* Model */,
 				5C6BFE692C6404E900096E2D /* Extensions */,
@@ -430,6 +432,7 @@
 				DEVELOPMENT_TEAM = 6N4HMYH8YX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Connext/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -460,6 +463,7 @@
 				DEVELOPMENT_TEAM = 6N4HMYH8YX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Connext/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
