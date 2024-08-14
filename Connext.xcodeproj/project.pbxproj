@@ -29,6 +29,8 @@
 		5C844A652C6682B10063B3E4 /* LocationMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A642C6682B10063B3E4 /* LocationMapViewModel.swift */; };
 		5C844A672C6A06E80063B3E4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A662C6A06E80063B3E4 /* LocationManager.swift */; };
 		5CBF361D2C6CA25400B5C6CB /* CKAsset+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */; };
+		5CBF36202C6CE87000B5C6CB /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */; };
+		5CBF36222C6D336000B5C6CB /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF36212C6D336000B5C6CB /* DismissButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		5C844A662C6A06E80063B3E4 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKAsset+Ext.swift"; sourceTree = "<group>"; };
 		5CBF361E2C6CCA8E00B5C6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		5CBF36212C6D336000B5C6CB /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 				5C1BF8D42C60D158005C7E2A /* LocationsListView.swift */,
 				5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */,
 				5C1BF8D62C60D16F005C7E2A /* ProfileView.swift */,
+				5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -152,8 +157,8 @@
 		5C6BFE6B2C64052F00096E2D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				5CBF36232C6D34BF00B5C6CB /* CustomButtons */,
 				5C2A0DE62C63EDCC00471993 /* AvatarView.swift */,
-				5C2A0DE82C64004B00471993 /* ConnextButton.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -203,6 +208,15 @@
 				5C1BF8D22C60D13D005C7E2A /* LocationMapView.swift */,
 			);
 			path = LocationMapView;
+			sourceTree = "<group>";
+		};
+		5CBF36232C6D34BF00B5C6CB /* CustomButtons */ = {
+			isa = PBXGroup;
+			children = (
+				5CBF36212C6D336000B5C6CB /* DismissButton.swift */,
+				5C2A0DE82C64004B00471993 /* ConnextButton.swift */,
+			);
+			path = CustomButtons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,11 +295,13 @@
 				5C844A572C660AC70063B3E4 /* MockData.swift in Sources */,
 				5C844A5B2C6623FE0063B3E4 /* CloudKitManager.swift in Sources */,
 				5C844A5E2C66246E0063B3E4 /* Constant.swift in Sources */,
+				5CBF36202C6CE87000B5C6CB /* OnboardingView.swift in Sources */,
 				5CBF361D2C6CA25400B5C6CB /* CKAsset+Ext.swift in Sources */,
 				5C844A602C66567A0063B3E4 /* CKRecord.swift in Sources */,
 				5C1BF8D32C60D13D005C7E2A /* LocationMapView.swift in Sources */,
 				5C1BF8D52C60D158005C7E2A /* LocationsListView.swift in Sources */,
 				5C1BF8D92C6110AA005C7E2A /* LocationsDetailView.swift in Sources */,
+				5CBF36222C6D336000B5C6CB /* DismissButton.swift in Sources */,
 				5C844A652C6682B10063B3E4 /* LocationMapViewModel.swift in Sources */,
 				5C1BF8D12C60CD67005C7E2A /* AppTabView.swift in Sources */,
 				5C2A0DE92C64004B00471993 /* ConnextButton.swift in Sources */,
