@@ -28,6 +28,7 @@
 		5C844A622C6677940063B3E4 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A612C6677940063B3E4 /* AlertItem.swift */; };
 		5C844A652C6682B10063B3E4 /* LocationMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A642C6682B10063B3E4 /* LocationMapViewModel.swift */; };
 		5C844A672C6A06E80063B3E4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A662C6A06E80063B3E4 /* LocationManager.swift */; };
+		5CBF361D2C6CA25400B5C6CB /* CKAsset+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		5C844A612C6677940063B3E4 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		5C844A642C6682B10063B3E4 /* LocationMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewModel.swift; sourceTree = "<group>"; };
 		5C844A662C6A06E80063B3E4 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKAsset+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				5C1BF8CE2C60CCA0005C7E2A /* Color+Ext.swift */,
+				5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				5C844A572C660AC70063B3E4 /* MockData.swift in Sources */,
 				5C844A5B2C6623FE0063B3E4 /* CloudKitManager.swift in Sources */,
 				5C844A5E2C66246E0063B3E4 /* Constant.swift in Sources */,
+				5CBF361D2C6CA25400B5C6CB /* CKAsset+Ext.swift in Sources */,
 				5C844A602C66567A0063B3E4 /* CKRecord.swift in Sources */,
 				5C1BF8D32C60D13D005C7E2A /* LocationMapView.swift in Sources */,
 				5C1BF8D52C60D158005C7E2A /* LocationsListView.swift in Sources */,

@@ -32,9 +32,9 @@ struct BannerView: View {
     var location: Location
     
     var body: some View {
-        Image("connext.banner")
+        Image(uiImage: location.createBannerImage())
             .resizable()
-            .scaledToFill()
+            .scaledToFit()
             .frame(height: 120)
         HStack{
             Label(location.adress, systemImage: "mappin.and.ellipse")
