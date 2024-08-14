@@ -17,7 +17,6 @@ struct LocationMapView: View {
             Map(coordinateRegion: $viewModel.region, annotationItems: locationManager.locations) { location in
                 MapMarker(coordinate: location.location.coordinate, tint: .brandPrimaryColor)
             }
-            .ignoresSafeArea()
             
             VStack {
                 Image("connext.transparent")

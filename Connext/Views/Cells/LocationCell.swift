@@ -13,7 +13,12 @@ struct LocationCell: View {
     
     var body: some View{
         HStack{
-            AvatarView(size: 80)
+            Image(uiImage: location.createSquareImage())
+                .resizable()
+                .scaledToFit()
+                .frame(width: 80, height: 80)
+                .clipShape(.circle)
+                .padding(.vertical, 8)
             Spacer()
             VStack(alignment: .leading){
                 Text(location.name)
