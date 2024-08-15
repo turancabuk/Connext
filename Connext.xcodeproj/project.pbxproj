@@ -98,6 +98,7 @@
 				5C844A512C6534250063B3E4 /* Model */,
 				5C6BFE692C6404E900096E2D /* Extensions */,
 				5C6BFE672C64049500096E2D /* Views */,
+				5C6BFE682C64049C00096E2D /* Screens */,
 				5C1BF8CD2C60B75C005C7E2A /* Connext.entitlements */,
 				5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */,
 				5C1BF8C32C601263005C7E2A /* Assets.xcassets */,
@@ -117,9 +118,10 @@
 		5C6BFE672C64049500096E2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5C844A632C66829F0063B3E4 /* LocationMapView */,
 				5C6BFE6B2C64052F00096E2D /* CustomViews */,
 				5C6BFE6A2C64050D00096E2D /* Cells */,
-				5C6BFE682C64049C00096E2D /* Screens */,
+				5C2A0DE42C63E4C700471993 /* LocationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -127,7 +129,6 @@
 		5C6BFE682C64049C00096E2D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				5C844A632C66829F0063B3E4 /* LocationMapView */,
 				5C1BF8D02C60CD67005C7E2A /* AppTabView.swift */,
 				5C1BF8D42C60D158005C7E2A /* LocationsListView.swift */,
 				5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */,
@@ -149,7 +150,6 @@
 		5C6BFE6A2C64050D00096E2D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5C2A0DE42C63E4C700471993 /* LocationCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
