@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct OnboardingView: View {
+        
+    @Binding var isShowingOnboardView: Bool
+    
     var body: some View {
         ZStack {
             Color.onboarding.ignoresSafeArea()
-            OnboardInfoView()
+            OnboardInfoView(showingOnboardView: $isShowingOnboardView)
         }
     }
 }
 
 struct OnboardInfoView: View {
+    
+    @Binding var showingOnboardView: Bool
+    
     var body: some View {
         VStack(spacing: 24) {
             HStack {
                 Spacer()
                 Button(action: {
-                    
+                    showingOnboardView = false
                 }, label: {
                     DismissButton()
                 })
@@ -34,11 +40,14 @@ struct OnboardInfoView: View {
                 .scaledToFit()
                 .cornerRadius(24)
                 .frame(width: 180, height: 220)
+                .shadow(color: .gray, radius: 14)
                 .padding(.vertical, 12)
 
-            createCustomOnboardingCell(imageName: "building.2.crop.circle", titleText: "Restaurant Locations", DescriptionText: "Find places to dine around the convention center")
-            createCustomOnboardingCell(imageName: "checkmark.circle", titleText: "Check In", DescriptionText: "Let other iOS Devs know where you are")
-            createCustomOnboardingCell(imageName: "person.2.circle", titleText: "Find Friends", DescriptionText: "See where other iOS Devs are and join the party")
+            VStack(alignment: .leading, spacing: 24) {
+                createCustomOnboardingCell(imageName: "building.2.crop.circle", titleText: "Restaurant Locations", DescriptionText: "Find places to dine around the convention center")
+                createCustomOnboardingCell(imageName: "checkmark.circle", titleText: "Check In", DescriptionText: "Let other iOS Devs know where you are")
+                createCustomOnboardingCell(imageName: "person.2.circle", titleText: "Find Friends", DescriptionText: "See where other iOS Devs are and join the party")
+            }
             Spacer()
         }
     }
@@ -67,5 +76,5 @@ func createCustomOnboardingCell(imageName: String, titleText: String, Descriptio
     .padding(.horizontal, 48)
 }
 #Preview {
-    OnboardingView()
+    OnboardingView(isShowingOnboardView: .constant(true))
 }
