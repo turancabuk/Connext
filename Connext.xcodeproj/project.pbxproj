@@ -31,6 +31,8 @@
 		5CBF361D2C6CA25400B5C6CB /* CKAsset+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */; };
 		5CBF36202C6CE87000B5C6CB /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */; };
 		5CBF36222C6D336000B5C6CB /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF36212C6D336000B5C6CB /* DismissButton.swift */; };
+		5CBF36252C6F6A0500B5C6CB /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF36242C6F6A0500B5C6CB /* View+Ext.swift */; };
+		5CBF36272C6F93A000B5C6CB /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF36262C6F93A000B5C6CB /* UIImage+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		5CBF361E2C6CCA8E00B5C6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		5CBF36212C6D336000B5C6CB /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
+		5CBF36242C6F6A0500B5C6CB /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
+		5CBF36262C6F93A000B5C6CB /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +125,6 @@
 				5C844A632C66829F0063B3E4 /* LocationMapView */,
 				5C6BFE6B2C64052F00096E2D /* CustomViews */,
 				5C6BFE6A2C64050D00096E2D /* Cells */,
-				5C2A0DE42C63E4C700471993 /* LocationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -143,6 +146,8 @@
 			children = (
 				5C1BF8CE2C60CCA0005C7E2A /* Color+Ext.swift */,
 				5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */,
+				5CBF36242C6F6A0500B5C6CB /* View+Ext.swift */,
+				5CBF36262C6F93A000B5C6CB /* UIImage+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 		5C6BFE6A2C64050D00096E2D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5C2A0DE42C63E4C700471993 /* LocationCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -298,9 +304,11 @@
 				5CBF36202C6CE87000B5C6CB /* OnboardingView.swift in Sources */,
 				5CBF361D2C6CA25400B5C6CB /* CKAsset+Ext.swift in Sources */,
 				5C844A602C66567A0063B3E4 /* CKRecord.swift in Sources */,
+				5CBF36272C6F93A000B5C6CB /* UIImage+Ext.swift in Sources */,
 				5C1BF8D32C60D13D005C7E2A /* LocationMapView.swift in Sources */,
 				5C1BF8D52C60D158005C7E2A /* LocationsListView.swift in Sources */,
 				5C1BF8D92C6110AA005C7E2A /* LocationsDetailView.swift in Sources */,
+				5CBF36252C6F6A0500B5C6CB /* View+Ext.swift in Sources */,
 				5CBF36222C6D336000B5C6CB /* DismissButton.swift in Sources */,
 				5C844A652C6682B10063B3E4 /* LocationMapViewModel.swift in Sources */,
 				5C1BF8D12C60CD67005C7E2A /* AppTabView.swift in Sources */,
