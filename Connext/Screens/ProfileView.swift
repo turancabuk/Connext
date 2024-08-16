@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import CloudKit
 
 struct ProfileView: View {
     
@@ -124,13 +125,48 @@ struct ProfileView: View {
             }
         }
     }
-    
     func createProfile() {
         guard checkRequirements() else {
             alertItem = AlertContext.invalidProfile
             return
         }
+        
+        let profileRecord = CKRecord(recordType: RecordType.profile)
+        profileRecord[Profile.kFirstName] = name
+        profileRecord[Profile.kLastName] = lastName
+        profileRecord[Profile.kCompanyName] = companyName
+        profileRecord[Profile.kBio] = bio
+        profileRecord[Profile.kAvatar] = avatarImage?.convertToCKAsset()
+        
+        CKContainer.default().fetchUserRecordID { recordID, error in
+            guard let recordID = recordID, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
+                guard let userRecord = userRecord, error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                
+                userRecord["ConnextProfile"] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
+                
+                let operation = CKModifyRecordsOperation(recordsToSave: [userRecord, profileRecord])
+                
+                operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
+                    guard let savedRecords = savedRecords, error == nil else {
+                        print(error!.localizedDescription)
+                        return
+                    }
+                    
+                    print(savedRecords)
+                }
+                CKContainer.default().publicCloudDatabase.add(operation)
+            }
+        }
     }
+    
     func checkRequirements() -> Bool {
         guard !name.isEmpty,
               !lastName.isEmpty,
