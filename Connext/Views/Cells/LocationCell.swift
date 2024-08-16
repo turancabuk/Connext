@@ -28,7 +28,7 @@ struct LocationCell: View {
                     .minimumScaleFactor(0.75)
                 HStack(spacing: 4) {
                     ForEach(0..<4) { _ in
-                        AvatarView(size: 48)
+                        AvatarView(image: PlaceHolderImage.avatar, size: 48)
                     }
                 }
                 Spacer()
