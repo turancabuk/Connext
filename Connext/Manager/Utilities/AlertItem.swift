@@ -16,7 +16,7 @@ struct AlertItem: Identifiable {
 
 struct AlertContext {
     
-    //MARK: - MapView Errors
+    //MARK: - MapView Alerts.
     static let unableToGetLocations = AlertItem(
         title: Text(
             "Locations Error"
@@ -65,6 +65,21 @@ struct AlertContext {
         ),
         message: Text(
             "Please check your phone's Settings > Privacy > Location Services."
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
+    
+    // Profile View Alert.
+    static let invalidProfile = AlertItem(
+        title: Text(
+            "Inavlid Profile!"
+        ),
+        message: Text(
+            "All fields are required."
         ),
         dismissButton: .default(
             Text(
