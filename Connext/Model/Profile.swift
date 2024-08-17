@@ -6,6 +6,7 @@
 //
 
 import CloudKit
+import UIKit
 
 struct Profile {
     static let kBio = "bio"
@@ -27,5 +28,10 @@ struct Profile {
         firstName       = record[Profile.kFirstName] as? String ?? "N/A"
         lastName        = record[Profile.kLastName] as? String ?? "N/A"
         avatar          = record[Profile.kAvatar] as?  CKAsset
+    }
+    
+    func createAvatarImage() -> UIImage {
+        guard let avatar = avatar else {return PlaceHolderImage.avatar}
+        return avatar.convertToUIImage(dimension: .square)
     }
 }
