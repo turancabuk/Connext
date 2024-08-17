@@ -12,7 +12,7 @@ import CloudKit
 struct ProfileView: View {
     
     @State var bio: String    = ""
-
+    
     @State private var name: String         = ""
     @State private var lastName: String     = ""
     @State private var companyName: String  = ""
@@ -109,19 +109,20 @@ struct ProfileView: View {
                         .background(.brandPrimary)
                         .cornerRadius(20)
                 })
-                    .padding(.bottom, 16)
-                    .navigationTitle("Profile")
-                    .navigationBarTitleDisplayMode(.large)
-                    .toolbar{
-                        Button(action: {
-                            dismissKeyboard()
-                        }, label: {
-                            Image(systemName: "keyboard.chevron.compact.down")
-                        })
-                    }
-                    .alert(item: $alertItem) { alertItem in
-                        Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-                    }
+                .padding(.bottom, 16)
+                .navigationTitle("Profile")
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar{
+                    Button(action: {
+                        dismissKeyboard()
+                    }, label: {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                    })
+                }
+                .onAppear { getProfile() }
+                .alert(item: $alertItem) { alertItem in
+                    Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
+                }
             }
         }
     }
@@ -132,11 +133,11 @@ struct ProfileView: View {
         }
         
         let profileRecord = CKRecord(recordType: RecordType.profile)
-        profileRecord[Profile.kFirstName] = name
-        profileRecord[Profile.kLastName] = lastName
+        profileRecord[Profile.kFirstName]   = name
+        profileRecord[Profile.kLastName]    = lastName
         profileRecord[Profile.kCompanyName] = companyName
-        profileRecord[Profile.kBio] = bio
-        profileRecord[Profile.kAvatar] = avatarImage?.convertToCKAsset()
+        profileRecord[Profile.kBio]         = bio
+        profileRecord[Profile.kAvatar]      = avatarImage?.convertToCKAsset()
         
         CKContainer.default().fetchUserRecordID { recordID, error in
             guard let recordID = recordID, error == nil else {
@@ -166,7 +167,39 @@ struct ProfileView: View {
             }
         }
     }
-    
+    func getProfile() {
+        CKContainer.default().fetchUserRecordID { recordID, error in
+            guard let recordID = recordID, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
+                guard let userRecord = userRecord, error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                
+                let profileReference = userRecord["ConnextProfile"] as! CKRecord.Reference
+                let profileRecordID = profileReference.recordID
+                
+                CKContainer.default().publicCloudDatabase.fetch(withRecordID: profileRecordID) { profileRecord, error in
+                    guard let profileRecord = profileRecord, error == nil else {
+                        print(error!.localizedDescription)
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        let profile = Profile(record: profileRecord)
+                        name        = profile.firstName
+                        lastName    = profile.lastName
+                        companyName = profile.companyName
+                        bio         = profile.bio
+                        avatarImage = profile.createAvatarImage()
+                    }
+                }
+            }
+        }
+    }
     func checkRequirements() -> Bool {
         guard !name.isEmpty,
               !lastName.isEmpty,
