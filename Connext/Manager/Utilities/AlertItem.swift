@@ -87,4 +87,60 @@ struct AlertContext {
             )
         )
     )
+
+    static let noUserRecord = AlertItem(
+        title: Text(
+            "Error!"
+        ),
+        message: Text(
+            "You must log in to your iCloud account."
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
+
+    static let profileFailure = AlertItem(
+        title: Text(
+            "Error!"
+        ),
+        message: Text(
+            "Failed to create profile. Please try again"
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
+
+    static let unableToGetProfile = AlertItem(
+        title: Text(
+            "Error!"
+        ),
+        message: Text(
+            "Unable to retrieve profile"
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
+    
+    static let profileSuccesfull = AlertItem(
+        title: Text(
+            "Suuces!"
+        ),
+        message: Text(
+            "Profile created succesfull."
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
 }
