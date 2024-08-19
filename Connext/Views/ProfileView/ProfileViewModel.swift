@@ -16,23 +16,20 @@ final class ProfileViewModel: ObservableObject {
     @Published var bio: String          = ""
     @Published var avatarImage          : UIImage?
     @Published var alertItem            : AlertItem?
+    @Published var isLoadingView: Bool  = false
     
     func getProfile() {
-        
-        
         guard let userRecord = CloudKitManager.shared.userRecord else {
-            // Show alert
+            self.alertItem = AlertContext.noUserRecord
             return
         }
-        guard let profileReference = userRecord["ConnextProfile"] as? CKRecord.Reference else {
-            // Show alert
-            return
-        }
+        guard let profileReference = userRecord["ConnextProfile"] as? CKRecord.Reference else {return}
         let profileRecordID = profileReference.recordID
         
-        
+        showLoadingView()
         CloudKitManager.shared.fetchRecord(id: profileRecordID) { result in
             DispatchQueue.main.async { [self] in
+                hideLoadingView()
                 switch result {
                 case .success(let record):
                     let profile = Profile(record: record)
@@ -41,9 +38,8 @@ final class ProfileViewModel: ObservableObject {
                     companyName = profile.companyName
                     bio         = profile.bio
                     avatarImage = profile.createAvatarImage()
-                    
-                case .failure(let failure):
-                    // Show alert
+                case .failure(_):
+                    alertItem = AlertContext.unableToGetProfile
                     break
                 }
             }
@@ -64,22 +60,28 @@ final class ProfileViewModel: ObservableObject {
         profileRecord[Profile.kAvatar]      = avatarImage?.convertToCKAsset()
         
         guard let userRecord = CloudKitManager.shared.userRecord else {
-            //Show alert
+            self.alertItem = AlertContext.noUserRecord
             return
         }
-        
+
         userRecord["ConnextProfile"] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
         
+        showLoadingView()
         CloudKitManager.shared.batchSave(records: [userRecord, profileRecord]) { result in
-            switch result {
-            case .success(let success):
-                break
-            case .failure(let failure):
-                break
+            DispatchQueue.main.async {
+                self.hideLoadingView()
+                switch result {
+                case .success(_):
+                    self.alertItem = AlertContext.profileSuccesfull
+                case .failure(_):
+                    self.alertItem = AlertContext.profileFailure
+                    break
+                }
             }
         }
     }
     
+    // Helper Methods.
     func checkRequirements() -> Bool {
         guard !name.isEmpty,
               !lastName.isEmpty,
@@ -89,4 +91,7 @@ final class ProfileViewModel: ObservableObject {
         else {return false}
         return true
     }
+    
+    private func showLoadingView() { isLoadingView = true }
+    private func hideLoadingView() { isLoadingView = false }
 }
