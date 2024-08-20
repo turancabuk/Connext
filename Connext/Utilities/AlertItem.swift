@@ -102,7 +102,7 @@ struct AlertContext {
         )
     )
 
-    static let profileFailure = AlertItem(
+    static let profileCreateFailure = AlertItem(
         title: Text(
             "Error!"
         ),
@@ -129,13 +129,55 @@ struct AlertContext {
             )
         )
     )
+
+    static let profileSavingFailure = AlertItem(
+        title: Text(
+            "Error!"
+        ),
+        message: Text(
+            "Profile created failed. \nPlease try again"
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
     
-    static let profileSuccesfull = AlertItem(
+    static let profileSavingSuccesfull = AlertItem(
         title: Text(
             "Suuces!"
         ),
         message: Text(
             "Profile created succesfull."
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
+
+    static let profileUpdatingFailure = AlertItem(
+        title: Text(
+            "Error!"
+        ),
+        message: Text(
+            "Profile updating failure. \nPlease try again"
+        ),
+        dismissButton: .default(
+            Text(
+                "Ok"
+            )
+        )
+    )
+    
+    static let profileUpdatingSuccesfull = AlertItem(
+        title: Text(
+            "Suuces!"
+        ),
+        message: Text(
+            "Profile updated succesfull."
         ),
         dismissButton: .default(
             Text(
