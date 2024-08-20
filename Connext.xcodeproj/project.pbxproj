@@ -102,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				5CBF361E2C6CCA8E00B5C6CB /* Info.plist */,
-				5C844A592C6623E90063B3E4 /* Manager */,
+				5C844A582C6617300063B3E4 /* Utilities */,
 				5C844A512C6534250063B3E4 /* Model */,
 				5C6BFE692C6404E900096E2D /* Extensions */,
 				5C6BFE672C64049500096E2D /* Views */,
@@ -187,6 +187,7 @@
 		5C844A582C6617300063B3E4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5C844A592C6623E90063B3E4 /* Manager */,
 				5C844A5F2C66567A0063B3E4 /* CKRecord.swift */,
 				5C844A612C6677940063B3E4 /* AlertItem.swift */,
 			);
@@ -196,7 +197,6 @@
 		5C844A592C6623E90063B3E4 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				5C844A582C6617300063B3E4 /* Utilities */,
 				5C844A5C2C6624560063B3E4 /* Constant */,
 				5C844A5A2C6623FE0063B3E4 /* CloudKitManager.swift */,
 				5C844A662C6A06E80063B3E4 /* LocationManager.swift */,

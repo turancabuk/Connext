@@ -126,9 +126,9 @@ struct ButtonView: View {
     var body: some View {
         HStack {
             Button(action: {
-                viewmodel.createProfile()
+                viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()
             }, label: {
-                Text("Create Profile")
+                Text(viewmodel.profileContext == .create ? "Create Profile" : "Update Profile")
                     .bold()
                     .frame(width: 280, height: 50)
                     .foregroundColor(.white)
