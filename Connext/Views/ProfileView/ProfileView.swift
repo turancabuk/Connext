@@ -13,17 +13,21 @@ struct ProfileView: View {
     
     @StateObject private var viewmodel  = ProfileViewModel()
     @State private var photosPickerItem : PhotosPickerItem?
-
+    
     
     var body: some View {
-        VStack{
-            PersonalInfoView(photosPickerItem: $photosPickerItem, viewmodel: viewmodel)
-            BioInfoView(viewmodel: viewmodel)
-            ButtonView(viewmodel: viewmodel)
+        ZStack {
+            VStack{
+                PersonalInfoView(photosPickerItem: $photosPickerItem, viewmodel: viewmodel)
+                BioInfoView(viewmodel: viewmodel)
+                ButtonView(viewmodel: viewmodel)
+            }
+            if viewmodel.isLoadingView {
+                LoadingView()
+            }
         }
     }
 }
-
 struct PersonalInfoView: View {
     
     @Binding var photosPickerItem: PhotosPickerItem?
@@ -122,9 +126,9 @@ struct ButtonView: View {
     var body: some View {
         HStack {
             Button(action: {
-                viewmodel.createProfile()
+                viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()
             }, label: {
-                Text("Create Profile")
+                Text(viewmodel.profileContext == .create ? "Create Profile" : "Update Profile")
                     .bold()
                     .frame(width: 280, height: 50)
                     .foregroundColor(.white)

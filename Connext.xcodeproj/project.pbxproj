@@ -28,6 +28,7 @@
 		5C844A622C6677940063B3E4 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A612C6677940063B3E4 /* AlertItem.swift */; };
 		5C844A652C6682B10063B3E4 /* LocationMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A642C6682B10063B3E4 /* LocationMapViewModel.swift */; };
 		5C844A672C6A06E80063B3E4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C844A662C6A06E80063B3E4 /* LocationManager.swift */; };
+		5C8ABB7D2C7342CE00A19FFB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8ABB7C2C7342CE00A19FFB /* LoadingView.swift */; };
 		5CBF361D2C6CA25400B5C6CB /* CKAsset+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */; };
 		5CBF36202C6CE87000B5C6CB /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */; };
 		5CBF36222C6D336000B5C6CB /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF36212C6D336000B5C6CB /* DismissButton.swift */; };
@@ -60,6 +61,7 @@
 		5C844A612C6677940063B3E4 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		5C844A642C6682B10063B3E4 /* LocationMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewModel.swift; sourceTree = "<group>"; };
 		5C844A662C6A06E80063B3E4 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5C8ABB7C2C7342CE00A19FFB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5CBF361C2C6CA25400B5C6CB /* CKAsset+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKAsset+Ext.swift"; sourceTree = "<group>"; };
 		5CBF361E2C6CCA8E00B5C6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -100,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				5CBF361E2C6CCA8E00B5C6CB /* Info.plist */,
-				5C844A592C6623E90063B3E4 /* Manager */,
+				5C844A582C6617300063B3E4 /* Utilities */,
 				5C844A512C6534250063B3E4 /* Model */,
 				5C6BFE692C6404E900096E2D /* Extensions */,
 				5C6BFE672C64049500096E2D /* Views */,
@@ -167,6 +169,7 @@
 			children = (
 				5CBF36232C6D34BF00B5C6CB /* CustomButtons */,
 				5C2A0DE62C63EDCC00471993 /* AvatarView.swift */,
+				5C8ABB7C2C7342CE00A19FFB /* LoadingView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 		5C844A582C6617300063B3E4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5C844A592C6623E90063B3E4 /* Manager */,
 				5C844A5F2C66567A0063B3E4 /* CKRecord.swift */,
 				5C844A612C6677940063B3E4 /* AlertItem.swift */,
 			);
@@ -193,7 +197,6 @@
 		5C844A592C6623E90063B3E4 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				5C844A582C6617300063B3E4 /* Utilities */,
 				5C844A5C2C6624560063B3E4 /* Constant */,
 				5C844A5A2C6623FE0063B3E4 /* CloudKitManager.swift */,
 				5C844A662C6A06E80063B3E4 /* LocationManager.swift */,
@@ -317,6 +320,7 @@
 				5C844A602C66567A0063B3E4 /* CKRecord.swift in Sources */,
 				5CBF36272C6F93A000B5C6CB /* UIImage+Ext.swift in Sources */,
 				5C1BF8D32C60D13D005C7E2A /* LocationMapView.swift in Sources */,
+				5C8ABB7D2C7342CE00A19FFB /* LoadingView.swift in Sources */,
 				5C1BF8D52C60D158005C7E2A /* LocationsListView.swift in Sources */,
 				5C1BF8D92C6110AA005C7E2A /* LocationsDetailView.swift in Sources */,
 				5CBF36252C6F6A0500B5C6CB /* View+Ext.swift in Sources */,
