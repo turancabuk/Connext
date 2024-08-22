@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C05855E2C77D7200060AA18 /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C05855D2C77D7200060AA18 /* LocationDetailViewModel.swift */; };
 		5C1BF8C02C601263005C7E2A /* ConnextApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */; };
 		5C1BF8C42C601263005C7E2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1BF8C32C601263005C7E2A /* Assets.xcassets */; };
 		5C1BF8C72C601263005C7E2A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1BF8C62C601263005C7E2A /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C05855D2C77D7200060AA18 /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
 		5C1BF8BC2C601263005C7E2A /* Connext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connext.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnextApp.swift; sourceTree = "<group>"; };
 		5C1BF8C32C601263005C7E2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,6 +84,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C05855C2C77D7080060AA18 /* LocationDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */,
+				5C05855D2C77D7200060AA18 /* LocationDetailViewModel.swift */,
+			);
+			path = LocationDetailView;
+			sourceTree = "<group>";
+		};
 		5C1BF8B32C601262005C7E2A = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +136,7 @@
 		5C6BFE672C64049500096E2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5C05855C2C77D7080060AA18 /* LocationDetailView */,
 				5C844A632C66829F0063B3E4 /* LocationMapView */,
 				5CBF36282C70FF7600B5C6CB /* ProfileView */,
 				5C6BFE682C64049C00096E2D /* Screens */,
@@ -139,7 +151,6 @@
 			children = (
 				5C1BF8D02C60CD67005C7E2A /* AppTabView.swift */,
 				5C1BF8D42C60D158005C7E2A /* LocationsListView.swift */,
-				5C1BF8D82C6110AA005C7E2A /* LocationsDetailView.swift */,
 				5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */,
 			);
 			path = Screens;
@@ -310,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C1BF8C02C601263005C7E2A /* ConnextApp.swift in Sources */,
+				5C05855E2C77D7200060AA18 /* LocationDetailViewModel.swift in Sources */,
 				5C844A552C65570A0063B3E4 /* Profile.swift in Sources */,
 				5C844A532C6534300063B3E4 /* Location.swift in Sources */,
 				5C844A572C660AC70063B3E4 /* MockData.swift in Sources */,

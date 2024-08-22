@@ -9,21 +9,18 @@ import SwiftUI
 
 struct LocationsDetailView: View {
     
-    var location: Location
-    let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
-                   GridItem(.flexible(minimum: 20, maximum: 100)),
-                   GridItem(.flexible(minimum: 20, maximum: 100))]
-    
+    @ObservedObject var viewmodel: LocationDetailViewModel
     let label: String = "hello"
+    
     var body: some View {
         NavigationView {
             VStack{
-                BannerView(location: location)
-                BuildInformationView(location: location)
-                UsersView(columns: columns)
+                BannerView(location: viewmodel.location)
+                BuildInformationView(viewmodel: viewmodel, location: viewmodel.location)
+                UsersView(columns: viewmodel.columns)
             }
         }
-        .navigationBarTitle(location.name)
+        .navigationBarTitle(viewmodel.location.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -50,6 +47,7 @@ struct BannerView: View {
 }
 struct BuildInformationView: View {
     
+    var viewmodel: LocationDetailViewModel
     var location: Location
     
     var body: some View {
@@ -63,7 +61,7 @@ struct BuildInformationView: View {
                 .foregroundColor(Color(.secondarySystemBackground))
             HStack(spacing: 20){
                 Button{
-                    
+                    viewmodel.getDirectionsToLocation()
                 }label: {
                     LocationActionButton(color: .brandPrimaryColor, imageName: "location.fill")
                 }
@@ -127,5 +125,5 @@ struct UsersView: View {
     }
 }
 #Preview {
-    LocationsDetailView(location: Location(record: MockData.location))
+    LocationsDetailView(viewmodel: LocationDetailViewModel(location: Location(record: MockData.location)))
 }

@@ -15,7 +15,7 @@ struct LocationsListView: View {
         NavigationView{
             List{
                 ForEach(locationManager.locations) { location in
-                    NavigationLink(destination: LocationsDetailView(location: location)) {
+                    NavigationLink(destination: LocationsDetailView(viewmodel: LocationDetailViewModel(location: location))) {
                         LocationCell(location: location)
                     }
                 }
