@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C05855E2C77D7200060AA18 /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C05855D2C77D7200060AA18 /* LocationDetailViewModel.swift */; };
+		5C0585602C78EB040060AA18 /* ProfileModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C05855F2C78EB040060AA18 /* ProfileModalView.swift */; };
 		5C1BF8C02C601263005C7E2A /* ConnextApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */; };
 		5C1BF8C42C601263005C7E2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1BF8C32C601263005C7E2A /* Assets.xcassets */; };
 		5C1BF8C72C601263005C7E2A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1BF8C62C601263005C7E2A /* Preview Assets.xcassets */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		5C05855D2C77D7200060AA18 /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
+		5C05855F2C78EB040060AA18 /* ProfileModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModalView.swift; sourceTree = "<group>"; };
 		5C1BF8BC2C601263005C7E2A /* Connext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connext.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C1BF8BF2C601263005C7E2A /* ConnextApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnextApp.swift; sourceTree = "<group>"; };
 		5C1BF8C32C601263005C7E2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			children = (
 				5C844A642C6682B10063B3E4 /* LocationMapViewModel.swift */,
 				5C1BF8D22C60D13D005C7E2A /* LocationMapView.swift */,
+				5C05855F2C78EB040060AA18 /* ProfileModalView.swift */,
 			);
 			path = LocationMapView;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				5C1BF8D72C60D16F005C7E2A /* ProfileView.swift in Sources */,
 				5C2A0DE52C63E4C700471993 /* LocationCell.swift in Sources */,
 				5C2A0DE72C63EDCC00471993 /* AvatarView.swift in Sources */,
+				5C0585602C78EB040060AA18 /* ProfileModalView.swift in Sources */,
 				5C844A672C6A06E80063B3E4 /* LocationManager.swift in Sources */,
 				5C1BF8CF2C60CCA0005C7E2A /* Color+Ext.swift in Sources */,
 			);

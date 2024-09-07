@@ -13,12 +13,10 @@ struct LocationsDetailView: View {
     let label: String = "hello"
     
     var body: some View {
-        NavigationView {
-            VStack{
-                BannerView(location: viewmodel.location)
-                BuildInformationView(viewmodel: viewmodel, location: viewmodel.location)
-                UsersView(columns: viewmodel.columns)
-            }
+        VStack{
+            BannerView(location: viewmodel.location)
+            BuildInformationView(viewmodel: viewmodel, location: viewmodel.location)
+            UsersView(columns: viewmodel.columns)
         }
         .navigationBarTitle(viewmodel.location.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -112,12 +110,14 @@ struct UsersView: View {
             .padding(.top)
         LazyVGrid(columns: columns, content: {
             ForEach(0..<7) { _ in
-                VStack {
-                    AvatarView(image: PlaceHolderImage.avatar, size: 48)
-                    Text("user name")
-                        .bold()
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.75)
+                NavigationLink(destination: ProfileModalView()) {
+                    VStack {
+                        AvatarView(image: PlaceHolderImage.avatar, size: 48)
+                        Text("user name")
+                            .bold()
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
+                    }
                 }
             }
         })
