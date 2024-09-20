@@ -10,18 +10,34 @@ import SwiftUI
 struct LocationsDetailView: View {
     
     @ObservedObject var viewmodel: LocationDetailViewModel
-    let label: String = "hello"
     
     var body: some View {
-        VStack{
-            BannerView(location: viewmodel.location)
-            BuildInformationView(viewmodel: viewmodel, location: viewmodel.location)
-            UsersView(columns: viewmodel.columns)
+        ZStack {
+            VStack{
+                BannerView(location: viewmodel.location)
+                BuildInformationView(viewmodel: viewmodel, location: viewmodel.location)
+                UsersView(columns: viewmodel.columns, viewmodel: viewmodel)
+            }
+            .navigationBarTitle(viewmodel.location.name)
+            .navigationBarTitleDisplayMode(.inline)
+            
+            if viewmodel.isShowingProfileModal {
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                    .opacity(0.9)
+                    .transition(.opacity)
+                    .animation(.easeOut)
+                    .zIndex(1)
+                ProfileModalView(isShowingProfileModal: $viewmodel.isShowingProfileModal,
+                                 profile: Profile(record: MockData.profile))
+                .transition(.opacity.combined(with: .slide))
+                .animation(.easeOut)
+                .zIndex(2)
+            }
         }
-        .navigationBarTitle(viewmodel.location.name)
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 struct BannerView: View {
     
     var location: Location
@@ -43,6 +59,7 @@ struct BannerView: View {
         Spacer()
     }
 }
+
 struct BuildInformationView: View {
     
     var viewmodel: LocationDetailViewModel
@@ -81,6 +98,7 @@ struct BuildInformationView: View {
         .padding()
     }
 }
+
 struct LocationActionButton: View {
     
     let color: Color
@@ -99,9 +117,11 @@ struct LocationActionButton: View {
         }
     }
 }
+
 struct UsersView: View {
     
     let columns: [GridItem]
+    var viewmodel: LocationDetailViewModel
     
     var body: some View {
         Text("Who's Here?")
@@ -109,21 +129,23 @@ struct UsersView: View {
             .font(.title2)
             .padding(.top)
         LazyVGrid(columns: columns, content: {
-            ForEach(0..<7) { _ in
-                NavigationLink(destination: ProfileModalView()) {
-                    VStack {
-                        AvatarView(image: PlaceHolderImage.avatar, size: 48)
-                        Text("user name")
-                            .bold()
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.75)
-                    }
+            ForEach(0..<1) { _ in
+                VStack {
+                    AvatarView(image: PlaceHolderImage.avatar, size: 48)
+                    Text("user name")
+                        .bold()
+                        .lineLimit(1) 
+                        .minimumScaleFactor(0.75)
+                }
+                .onTapGesture {
+                    viewmodel.isShowingProfileModal = true
                 }
             }
         })
         Spacer()
     }
 }
+
 #Preview {
     LocationsDetailView(viewmodel: LocationDetailViewModel(location: Location(record: MockData.location)))
 }

@@ -10,6 +10,7 @@ import MapKit
 
 class LocationDetailViewModel: ObservableObject {
     
+    @Published var isShowingProfileModal = false
     var location: Location
     let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),

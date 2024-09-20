@@ -18,4 +18,13 @@ struct MockData {
         record[Location.kLocation]      = CLLocation(latitude: 37.331516, longitude: -121.891054)
         return record
     }
+
+    static var profile: CKRecord {
+        let record                      = CKRecord(recordType: RecordType.profile)
+        record[Profile.kFirstName ]     = "Turan"
+        record[Profile.kLastName ]      = "Cabuk"
+        record[Profile.kCompanyName ]   = "Turkish Technic"
+        record[Profile.kBio]            = "This is a mock bio"
+        return record
+    }
 }
