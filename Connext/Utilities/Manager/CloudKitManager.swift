@@ -11,7 +11,8 @@ final class CloudKitManager {
     
     static let shared = CloudKitManager()
     var userRecord: CKRecord?
- 
+    var profileRecordID: CKRecord.ID?
+    
     private init() {}
         
     func getUserRecord() {
@@ -28,6 +29,10 @@ final class CloudKitManager {
                     return
                 }
                 self.userRecord = userRecord
+                
+                if let profileReference = userRecord["ConnextProfile"] as? CKRecord.Reference {
+                    self.profileRecordID = profileReference.recordID
+                }
             }
         }
     }
