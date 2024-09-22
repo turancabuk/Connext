@@ -35,6 +35,7 @@ struct LocationsDetailView: View {
                 .zIndex(2)
             }
         }
+        .onAppear { viewmodel.getCheckedProfiles() }
     }
 }
 
@@ -89,9 +90,9 @@ struct BuildInformationView: View {
                     LocationActionButton(color: .brandPrimaryColor, imageName: "phone")
                 }
                 Button{
-                    viewmodel.updateCheckInStatus(checkInStatus: .checkedOut)
+                    viewmodel.updateCheckInStatus(checkInStatus: viewmodel.checkStatus ? .checkedOut : .checkedIn)
                 }label: {
-                    LocationActionButton(color: .red, imageName: "person.fill.xmark")
+                    LocationActionButton(color: viewmodel.checkStatus ? .red : .blue, imageName: viewmodel.checkStatus ? "person.fill.xmark" : "person.fill.checkmark")
                 }
             }
         }
@@ -129,10 +130,10 @@ struct UsersView: View {
             .font(.title2)
             .padding(.top)
         LazyVGrid(columns: columns, content: {
-            ForEach(0..<1) { _ in
+            ForEach(viewmodel.checkedProfiles) { profile in
                 VStack {
                     AvatarView(image: PlaceHolderImage.avatar, size: 48)
-                    Text("user name")
+                    Text("profile.firstName")
                         .bold()
                         .lineLimit(1) 
                         .minimumScaleFactor(0.75)
@@ -142,7 +143,7 @@ struct UsersView: View {
                 }
             }
         })
-        Spacer()
+        Spacer() 
     }
 }
 

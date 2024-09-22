@@ -9,13 +9,14 @@ import SwiftUI
 import MapKit
 import CloudKit
 
-enum checkInStatus { case checkedIn, checkedOut }
+enum CheckInStatus { case checkedIn, checkedOut }
 
 class LocationDetailViewModel: ObservableObject {
     
+    @Published var checkedProfiles: [Profile] = []
+    @Published var checkStatus = false
     @Published var isShowingProfileModal = false
     var location: Location
-    var checkStatus: Bool = false
     let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100))]
@@ -37,7 +38,7 @@ class LocationDetailViewModel: ObservableObject {
         UIApplication.shared.open(url)
     }
     
-    func updateCheckInStatus(checkInStatus: checkInStatus) {
+    func updateCheckInStatus(checkInStatus: CheckInStatus) {
         guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
             return
         }
@@ -55,15 +56,37 @@ class LocationDetailViewModel: ObservableObject {
                 }
                 
                 CloudKitManager.shared.save(record: record) { result in
-                    switch result {
-                    case .success(_):
-                        print("✅ Succes!")
-                    case .failure(_):
-                        print("❌ Failure!")
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(_):
+                            let profile = Profile(record: record)
+                            switch checkInStatus {
+                            case .checkedIn:
+                                self.checkedProfiles.append(profile)
+                            case .checkedOut:
+                                self.checkedProfiles.removeAll(where: { $0.id == profile.id })
+                            }
+                            print("✅ Succes!")
+                        case .failure(_):
+                            print("❌ Failure!")
+                        }
                     }
                 }
             case .failure(let failure):
                 print("❌ Saving Failure: \(failure.localizedDescription)")
+            }
+        }
+    }
+    
+    func getCheckedProfiles() {
+        CloudKitManager.shared.getCheckedInProfiles(for: location.id) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let profiles):
+                    self.checkedProfiles = profiles
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
         }
     }
