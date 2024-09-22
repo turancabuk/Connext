@@ -125,16 +125,16 @@ struct ButtonView: View {
     
     var body: some View {
         HStack {
-            Button(action: {
+            Button{
                 viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()
-            }, label: {
+            } label: {
                 Text(viewmodel.profileContext == .create ? "Create Profile" : "Update Profile")
                     .bold()
                     .frame(width: 280, height: 50)
                     .foregroundColor(.white)
                     .background(.brandPrimary)
                     .cornerRadius(20)
-            })
+            }
             .padding(.bottom, 16)
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)

@@ -77,6 +77,7 @@ final class ProfileViewModel: ObservableObject {
                 case .success(let records):
                     for record in records where record.recordType == RecordType.profile {
                         self.existingProfileRecord = record
+                        CloudKitManager.shared.profileRecordID = record.recordID
                     }
                     self.alertItem = AlertContext.profileSavingSuccesfull
                 case .failure(_):
@@ -123,8 +124,9 @@ final class ProfileViewModel: ObservableObject {
         guard !name.isEmpty,
               !lastName.isEmpty,
               !companyName.isEmpty,
-              avatarImage != nil,
-              bio.count <= 100
+              !bio.isEmpty,
+              bio.count <= 100,
+              avatarImage != nil
         else {return false}
         return true
     }

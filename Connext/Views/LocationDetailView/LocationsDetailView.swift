@@ -89,7 +89,7 @@ struct BuildInformationView: View {
                     LocationActionButton(color: .brandPrimaryColor, imageName: "phone")
                 }
                 Button{
-                    
+                    viewmodel.updateCheckInStatus(checkInStatus: .checkedOut)
                 }label: {
                     LocationActionButton(color: .red, imageName: "person.fill.xmark")
                 }
