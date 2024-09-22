@@ -10,20 +10,35 @@ import SwiftUI
 struct LocationsDetailView: View {
     
     @ObservedObject var viewmodel: LocationDetailViewModel
-    let label: String = "hello"
     
     var body: some View {
-        NavigationView {
+        ZStack {
             VStack{
                 BannerView(location: viewmodel.location)
                 BuildInformationView(viewmodel: viewmodel, location: viewmodel.location)
-                UsersView(columns: viewmodel.columns)
+                UsersView(columns: viewmodel.columns, viewmodel: viewmodel)
+            }
+            .navigationBarTitle(viewmodel.location.name)
+            .navigationBarTitleDisplayMode(.inline)
+            
+            if viewmodel.isShowingProfileModal {
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                    .opacity(0.9)
+                    .transition(.opacity)
+                    .animation(.easeOut)
+                    .zIndex(1)
+                ProfileModalView(isShowingProfileModal: $viewmodel.isShowingProfileModal,
+                                 profile: Profile(record: MockData.profile))
+                .transition(.opacity.combined(with: .slide))
+                .animation(.easeOut)
+                .zIndex(2)
             }
         }
-        .navigationBarTitle(viewmodel.location.name)
-        .navigationBarTitleDisplayMode(.inline)
+        .onAppear { viewmodel.getCheckedProfiles() }
     }
 }
+
 struct BannerView: View {
     
     var location: Location
@@ -45,6 +60,7 @@ struct BannerView: View {
         Spacer()
     }
 }
+
 struct BuildInformationView: View {
     
     var viewmodel: LocationDetailViewModel
@@ -74,15 +90,16 @@ struct BuildInformationView: View {
                     LocationActionButton(color: .brandPrimaryColor, imageName: "phone")
                 }
                 Button{
-                    
+                    viewmodel.updateCheckInStatus(checkInStatus: viewmodel.checkStatus ? .checkedOut : .checkedIn)
                 }label: {
-                    LocationActionButton(color: .red, imageName: "person.fill.xmark")
+                    LocationActionButton(color: viewmodel.checkStatus ? .red : .blue, imageName: viewmodel.checkStatus ? "person.fill.xmark" : "person.fill.checkmark")
                 }
             }
         }
         .padding()
     }
 }
+
 struct LocationActionButton: View {
     
     let color: Color
@@ -101,9 +118,11 @@ struct LocationActionButton: View {
         }
     }
 }
+
 struct UsersView: View {
     
     let columns: [GridItem]
+    var viewmodel: LocationDetailViewModel
     
     var body: some View {
         Text("Who's Here?")
@@ -111,19 +130,23 @@ struct UsersView: View {
             .font(.title2)
             .padding(.top)
         LazyVGrid(columns: columns, content: {
-            ForEach(0..<7) { _ in
+            ForEach(viewmodel.checkedProfiles) { profile in
                 VStack {
                     AvatarView(image: PlaceHolderImage.avatar, size: 48)
-                    Text("user name")
+                    Text("profile.firstName")
                         .bold()
-                        .lineLimit(1)
+                        .lineLimit(1) 
                         .minimumScaleFactor(0.75)
+                }
+                .onTapGesture {
+                    viewmodel.isShowingProfileModal = true
                 }
             }
         })
-        Spacer()
+        Spacer() 
     }
 }
+
 #Preview {
     LocationsDetailView(viewmodel: LocationDetailViewModel(location: Location(record: MockData.location)))
 }

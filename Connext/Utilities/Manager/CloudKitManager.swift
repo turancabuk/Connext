@@ -11,7 +11,8 @@ final class CloudKitManager {
     
     static let shared = CloudKitManager()
     var userRecord: CKRecord?
- 
+    var profileRecordID: CKRecord.ID?
+    
     private init() {}
         
     func getUserRecord() {
@@ -28,6 +29,10 @@ final class CloudKitManager {
                     return
                 }
                 self.userRecord = userRecord
+                
+                if let profileReference = userRecord["ConnextProfile"] as? CKRecord.Reference {
+                    self.profileRecordID = profileReference.recordID
+                }
             }
         }
     }
@@ -78,6 +83,22 @@ final class CloudKitManager {
                 return
             }
             completion(.success(record))
+        }
+    }
+    
+    func getCheckedInProfiles(for locationID: CKRecord.ID, completion: @escaping (Result<[Profile], Error>) -> Void) {
+        let reference = CKRecord.Reference(recordID: locationID, action: .none)
+        let predicate = NSPredicate(format: "isCheckedIn == %@", reference)
+        let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
+        
+        CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
+                guard let records = records, error == nil else {
+                    completion(.failure(error!))
+                    return
+            }
+            
+            let profiles = records.map { $0.convertToProfile() }
+            completion(.success(profiles))
         }
     }
 }
