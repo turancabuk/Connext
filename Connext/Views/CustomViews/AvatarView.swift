@@ -17,7 +17,7 @@ struct AvatarView: View {
             .resizable()
             .frame(width: size, height: size)
             .cornerRadius(.infinity)
-
+            .foregroundStyle(.brandPrimary)
     }
 }
 #Preview {
