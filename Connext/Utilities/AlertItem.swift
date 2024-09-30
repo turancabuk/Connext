@@ -87,7 +87,7 @@ struct AlertContext {
             )
         )
     )
-
+    
     static let noUserRecord = AlertItem(
         title: Text(
             "Error!"
@@ -101,7 +101,7 @@ struct AlertContext {
             )
         )
     )
-
+    
     static let profileCreateFailure = AlertItem(
         title: Text(
             "Error!"
@@ -115,7 +115,7 @@ struct AlertContext {
             )
         )
     )
-
+    
     static let unableToGetProfile = AlertItem(
         title: Text(
             "Error!"
@@ -129,7 +129,7 @@ struct AlertContext {
             )
         )
     )
-
+    
     static let profileSavingFailure = AlertItem(
         title: Text(
             "Error!"
@@ -157,7 +157,7 @@ struct AlertContext {
             )
         )
     )
-
+    
     static let profileUpdatingFailure = AlertItem(
         title: Text(
             "Error!"
@@ -174,7 +174,7 @@ struct AlertContext {
     
     static let profileUpdatingSuccesfull = AlertItem(
         title: Text(
-            "Suuces!"
+            "Succes!"
         ),
         message: Text(
             "Profile updated succesfull."
@@ -184,5 +184,19 @@ struct AlertContext {
                 "Ok"
             )
         )
+    )
+    
+    // Location Detail Alerts.
+    
+    static let unableToGetCheckInStatus = AlertItem(
+        title: Text("Server error!"),
+        message: Text("Unable to retrieve check-in status."),
+        dismissButton: .default(Text("Ok"))
+    )
+    
+    static let unableToGetCheckInorOut = AlertItem(
+        title: Text("Server error!"),
+        message: Text("We are unable to retrieve check-in or out status."),
+        dismissButton: .default(Text("Ok"))
     )
 }
