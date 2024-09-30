@@ -31,12 +31,14 @@ final class LocationMapViewModel: NSObject, ObservableObject {
         }
     }
     func checkIfLocationServiceIsEnabled() {
-        if CLLocationManager.locationServicesEnabled() {
-            deviceLocationManager = CLLocationManager()
-            deviceLocationManager!.delegate = self
-            
-        }else{
-            alertItem = AlertContext.locationDisabled
+        DispatchQueue.main.async { [self] in
+            if CLLocationManager.locationServicesEnabled() {
+                deviceLocationManager = CLLocationManager()
+                deviceLocationManager!.delegate = self
+                
+            }else{
+                alertItem = AlertContext.locationDisabled
+            }
         }
     }
     
