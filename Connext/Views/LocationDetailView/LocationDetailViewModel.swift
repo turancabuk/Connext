@@ -119,4 +119,4 @@ final class LocationDetailViewModel: ObservableObject {
     private func showLoadingView() { self.isLoadingView = true }
     private func hideLoadingView() { self.isLoadingView = false}
 }
- 
+
