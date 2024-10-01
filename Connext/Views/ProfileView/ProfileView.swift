@@ -26,6 +26,10 @@ struct ProfileView: View {
                 LoadingView()
             }
         }
+        .onAppear {
+            viewmodel.getProfile()
+            viewmodel.getCheckedInStatus()
+        }
     }
 }
 struct PersonalInfoView: View {
@@ -96,15 +100,26 @@ struct BioInfoView : View {
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
             Spacer()
-            ZStack{
-                Color(.systemPink)
-                    .frame(width: 96, height: 28)
-                    .foregroundColor(.pink)
-                    .cornerRadius(12)
-                HStack(spacing: 6) {
-                    Image(systemName: "mappin.and.ellipse")
-                    Text("Check Out")
-                        .font(.system(size: 10))
+            if viewmodel.isCheckedIn {
+                Button {
+                    viewmodel.checkOut()
+                } label: {
+                    ZStack{
+                        Rectangle()
+                            .frame(width: 96, height: 28)
+                            .foregroundColor(viewmodel.isCheckedIn ? Color.pink : Color.gray)
+                            .cornerRadius(12)
+                        HStack(spacing: 6) {
+                            Image(systemName: "mappin.and.ellipse")
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 16))
+                            Text("Check Out")
+                                .frame(height: 20)
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 10))
+                                .bold()
+                        }
+                    }
                 }
             }
         }
@@ -145,7 +160,6 @@ struct ButtonView: View {
                     Image(systemName: "keyboard.chevron.compact.down")
                 })
             }
-            .onAppear { viewmodel.getProfile() }
             .alert(item: $viewmodel.alertItem) { alertItem in
                 Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
             }

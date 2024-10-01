@@ -22,7 +22,7 @@ struct LocationDetailView: View {
                     Spacer()
                 }
                 .padding(.horizontal)
-                
+                .padding(.vertical, 24)
                 DescriptionView(text: viewModel.location.description)
                 
                 ZStack {
