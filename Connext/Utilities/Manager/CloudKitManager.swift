@@ -101,4 +101,25 @@ final class CloudKitManager {
             completion(.success(profiles))
         }
     }
+    
+    func getCheckedInPorfilesDictionary(completion: @escaping (Result<[CKRecord.ID : [Profile]], Error>) -> Void) {
+        let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
+        let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        
+        var checkedInProfiles: [CKRecord.ID : [Profile]] = [:]
+        
+        operation.recordFetchedBlock = { record in
+            let profile = Profile(record: record)
+            guard let locationReference = profile.isCheckedIn else { return }
+            checkedInProfiles[locationReference.recordID, default: []].append(profile)
+        }
+        
+        operation.queryCompletionBlock = { cursor, error in
+            guard error == nil else { return completion(.failure(error!)) }
+            
+            completion(.success(checkedInProfiles))
+        }
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
 }

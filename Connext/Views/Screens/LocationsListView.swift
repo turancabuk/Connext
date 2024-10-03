@@ -21,6 +21,16 @@ struct LocationsListView: View {
                 }
             }
             .navigationTitle("Grub Spots")
+            .onAppear {
+                CloudKitManager.shared.getCheckedInPorfilesDictionary { result in
+                    switch result {
+                    case .success(let checkedInProfiles):
+                        print("checkedInProfiles: \(checkedInProfiles)")
+                    case .failure(_):
+                        print("error checkedInProfiles")
+                    }
+                }
+            }
         }
     }
 }
