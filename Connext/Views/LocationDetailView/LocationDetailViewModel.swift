@@ -21,6 +21,7 @@ final class LocationDetailViewModel: ObservableObject {
     var location: Location
     let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
+                   GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100))]
     
     init(location: Location) {
