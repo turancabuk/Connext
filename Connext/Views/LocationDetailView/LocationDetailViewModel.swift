@@ -71,8 +71,10 @@ final class LocationDetailViewModel: ObservableObject {
                     switch checkInStatus {
                     case .checkedIn:
                         record[Profile.kIsCheckedIn] = CKRecord.Reference(recordID: location.id, action: .none)
+                        record[Profile.kIsCheckedInNilCheck] = 1
                     case .checkedOut:
                         record[Profile.kIsCheckedIn] = nil
+                        record[Profile.kIsCheckedInNilCheck] = nil
                     }
                 }
                 
