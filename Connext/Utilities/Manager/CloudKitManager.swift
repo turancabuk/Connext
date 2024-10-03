@@ -102,7 +102,7 @@ final class CloudKitManager {
         }
     }
     
-    func getCheckedInPorfilesDictionary(completion: @escaping (Result<[CKRecord.ID : [Profile]], Error>) -> Void) {
+    func getCheckedInProfilesDictionary(completion: @escaping (Result<[CKRecord.ID : [Profile]], Error>) -> Void) {
         let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
         let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
         let operation = CKQueryOperation(query: query)
