@@ -14,15 +14,25 @@ struct LocationsListView: View {
     
     var body: some View {
         NavigationView{
-            List{
-                ForEach(locationManager.locations) { location in
-                    NavigationLink(destination: LocationDetailView(viewModel: LocationDetailViewModel(location: location))) {
-                        LocationCell(location: location,
-                                     profiles: viewmodel.checkedInProfiles[location.id, default: []])
+            ZStack{
+                if viewmodel.isLoading {
+                    ZStack{
+                        LoadingView()
+                        Text("Loading...")
+                            .padding(.top, 24)
                     }
+                }else {
+                    List{
+                        ForEach(locationManager.locations) { location in
+                            NavigationLink(destination: LocationDetailView(viewModel: LocationDetailViewModel(location: location))) {
+                                LocationCell(location: location,
+                                             profiles: viewmodel.checkedInProfiles[location.id, default: []])
+                            }
+                        }
+                    }
+                    .navigationTitle("Grub Spots")
                 }
             }
-            .navigationTitle("Grub Spots")
             .onAppear {
                 viewmodel.getCheckedInProfilesDictionary()
             }

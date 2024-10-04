@@ -98,7 +98,7 @@ final class LocationDetailViewModel: ObservableObject {
                         }
                     }
                 }
-            case .failure(let failure):
+            case .failure(_):
                 alertItem = AlertContext.unableToGetCheckInorOut
             }
         }
