@@ -31,7 +31,7 @@ struct LocationCell: View {
                     HStack{
                         ForEach(profiles.indices, id: \.self) { index in
                             if index <= 3 {
-                                AvatarView(image: profiles[index].createAvatarImage(), size: 36)
+                                AvatarView(image: profiles[index].createAvatarImage(), size: 42)
                             }else if index == 4 {
                                 AdditionalProfilesView(number: self.profiles.count - 4)
                             }
@@ -49,7 +49,7 @@ struct AdditionalProfilesView: View {
     
     var body: some View {
         Text("+\(number)")
-            .frame(width: 36, height: 36)
+            .frame(width: 42, height: 42)
             .bold()
             .background(.brandPrimary)
             .foregroundColor(.white)
