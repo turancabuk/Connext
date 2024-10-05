@@ -22,7 +22,7 @@ struct LocationDetailView: View {
                     Spacer()
                 }
                 .padding(.horizontal)
-                
+                .padding(.vertical, 24)
                 DescriptionView(text: viewModel.location.description)
                 
                 ZStack {
@@ -68,7 +68,7 @@ struct LocationDetailView: View {
                             .padding(.top, 30)
                     } else {
                         ScrollView {
-                            LazyVGrid(columns: viewModel.columns, content: {
+                            LazyVGrid(columns: viewModel.columns, alignment: .leading, content: {
                                 ForEach(viewModel.checkedProfiles) { profile in
                                     FirstNameAvatarView(profile: profile)
                                         .onTapGesture {
@@ -76,6 +76,7 @@ struct LocationDetailView: View {
                                         }
                                 }
                             })
+                            .padding(.horizontal, 18)
                         }
                     }
                     

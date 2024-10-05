@@ -21,6 +21,7 @@ final class LocationDetailViewModel: ObservableObject {
     var location: Location
     let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
+                   GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100))]
     
     init(location: Location) {
@@ -71,8 +72,10 @@ final class LocationDetailViewModel: ObservableObject {
                     switch checkInStatus {
                     case .checkedIn:
                         record[Profile.kIsCheckedIn] = CKRecord.Reference(recordID: location.id, action: .none)
+                        record[Profile.kIsCheckedInNilCheck] = 1
                     case .checkedOut:
                         record[Profile.kIsCheckedIn] = nil
+                        record[Profile.kIsCheckedInNilCheck] = nil
                     }
                 }
                 
@@ -95,7 +98,7 @@ final class LocationDetailViewModel: ObservableObject {
                         }
                     }
                 }
-            case .failure(let failure):
+            case .failure(_):
                 alertItem = AlertContext.unableToGetCheckInorOut
             }
         }
@@ -119,4 +122,4 @@ final class LocationDetailViewModel: ObservableObject {
     private func showLoadingView() { self.isLoadingView = true }
     private func hideLoadingView() { self.isLoadingView = false}
 }
- 
+
