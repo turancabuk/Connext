@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileModalView: View {
     
     @Binding var isShowingProfileModal: Bool
-    var profile: Profile
+    var profile                       : Profile
     
     var body: some View {
         ZStack {

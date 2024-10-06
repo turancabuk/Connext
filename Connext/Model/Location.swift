@@ -9,14 +9,14 @@ import CloudKit
 import UIKit
 
 struct Location: Identifiable {
-    static let kAdress = "adress"
+    static let kAdress      = "adress"
     static let kDescription = "description"
-    static let kName = "name"
+    static let kName        = "name"
     static let kPhoneNumber = "phoneNumber"
-    static let kWebsiteURL = "websiteURL"
+    static let kWebsiteURL  = "websiteURL"
     static let kBannerAsset = "bannerAsset"
     static let kSquareAsset = "squareAsset"
-    static let kLocation = "Location"
+    static let kLocation    = "Location"
 
     let adress, description, name, phoneNumber, websiteURL : String
     let bannerAsset, squareAsset: CKAsset!

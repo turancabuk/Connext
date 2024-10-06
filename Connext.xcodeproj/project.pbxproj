@@ -174,10 +174,9 @@
 		5C6BFE672C64049500096E2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5C4B1E412CB131F600ED7CF8 /* AppTabView */,
+				5C844A632C66829F0063B3E4 /* LocationMapView */,
 				5C27B8342CAE84730008A0B9 /* LocationsListView */,
 				5C05855C2C77D7080060AA18 /* LocationDetailView */,
-				5C844A632C66829F0063B3E4 /* LocationMapView */,
 				5CBF36282C70FF7600B5C6CB /* ProfileView */,
 				5C6BFE682C64049C00096E2D /* Screens */,
 				5C6BFE6B2C64052F00096E2D /* CustomViews */,
@@ -188,6 +187,7 @@
 		5C6BFE682C64049C00096E2D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				5C4B1E412CB131F600ED7CF8 /* AppTabView */,
 				5CBF361F2C6CE87000B5C6CB /* OnboardingView.swift */,
 			);
 			path = Screens;

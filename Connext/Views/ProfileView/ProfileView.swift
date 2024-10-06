@@ -22,9 +22,7 @@ struct ProfileView: View {
                 BioInfoView(viewmodel: viewmodel)
                 ButtonView(viewmodel: viewmodel)
             }
-            if viewmodel.isLoadingView {
-                LoadingView()
-            }
+            if viewmodel.isLoadingView {LoadingView()}
         }
         .onAppear {
             viewmodel.getProfile()
@@ -101,9 +99,7 @@ struct BioInfoView : View {
                 .foregroundColor(.secondary)
             Spacer()
             if viewmodel.isCheckedIn {
-                Button {
-                    viewmodel.checkOut()
-                } label: {
+                Button {viewmodel.checkOut()} label: {
                     ZStack{
                         Rectangle()
                             .frame(width: 96, height: 28)
@@ -139,30 +135,27 @@ struct ButtonView: View {
     @StateObject var viewmodel: ProfileViewModel
     
     var body: some View {
-        HStack {
-            Button{
-                viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()
-            } label: {
-                Text(viewmodel.profileContext == .create ? "Create Profile" : "Update Profile")
-                    .bold()
-                    .frame(width: 280, height: 50)
-                    .foregroundColor(.white)
-                    .background(.brandPrimary)
-                    .cornerRadius(20)
-            }
-            .padding(.bottom, 16)
-            .navigationTitle("Profile")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar{
-                Button(action: {
-                    dismissKeyboard()
-                }, label: {
-                    Image(systemName: "keyboard.chevron.compact.down")
-                })
-            }
-            .alert(item: $viewmodel.alertItem) { alertItem in
-                Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-            }
+        HStack {Button{ viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()} label: {
+            Text(viewmodel.profileContext == .create ? "Create Profile" : "Update Profile")
+                .bold()
+                .frame(width: 280, height: 50)
+                .foregroundColor(.white)
+                .background(.brandPrimary)
+                .cornerRadius(20)
+        }
+        .padding(.bottom, 16)
+        .navigationTitle("Profile")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar{
+            Button(action: {
+                dismissKeyboard()
+            }, label: {
+                Image(systemName: "keyboard.chevron.compact.down")
+            })
+        }
+        .alert(item: $viewmodel.alertItem) { alertItem in
+            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
+        }
         }
     }
 }

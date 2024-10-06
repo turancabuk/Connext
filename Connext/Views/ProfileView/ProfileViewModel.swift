@@ -122,7 +122,7 @@ final class ProfileViewModel: ObservableObject {
     
     func checkOut() {
         guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
-            return alertItem = AlertContext.unableToGetProfile
+            return alertItem      = AlertContext.unableToGetProfile
         }
         
         CloudKitManager.shared.fetchRecord(id: profileRecordID) { [self] result in
@@ -181,12 +181,12 @@ final class ProfileViewModel: ObservableObject {
     }
     
     private func createProfileRecord() -> CKRecord {
-        let profileRecord = CKRecord(recordType: RecordType.profile)
-        profileRecord[Profile.kFirstName]   = name
-        profileRecord[Profile.kLastName]    = lastName
-        profileRecord[Profile.kCompanyName] = companyName
-        profileRecord[Profile.kBio]         = bio
-        profileRecord[Profile.kAvatar]      = avatarImage?.convertToCKAsset()
+        let profileRecord = CKRecord(recordType : RecordType.profile)
+        profileRecord[Profile.kFirstName]       = name
+        profileRecord[Profile.kLastName]        = lastName
+        profileRecord[Profile.kCompanyName]     = companyName
+        profileRecord[Profile.kBio]             = bio
+        profileRecord[Profile.kAvatar]          = avatarImage?.convertToCKAsset()
         return profileRecord
     }
     

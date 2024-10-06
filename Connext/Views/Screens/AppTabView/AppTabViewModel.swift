@@ -10,13 +10,10 @@ import CoreLocation
 
 final class AppTabViewModel: NSObject, ObservableObject {
     
-    @Published var isShowingOnboardView: Bool = false
-    @Published var alertItem: AlertItem?
-    var deviceLocationManager: CLLocationManager?
-
-    var hasSeenOnboardView: Bool {
-        return UserDefaults.standard.bool(forKey: "kHasSeenOnboardView")
-    }
+    @Published var isShowingOnboardView : Bool = false
+    @Published var alertItem            : AlertItem?
+    var deviceLocationManager           : CLLocationManager?
+    var hasSeenOnboardView              : Bool {return UserDefaults.standard.bool(forKey: "kHasSeenOnboardView")}
     
     func runStartUpChecks() {
         if !hasSeenOnboardView {

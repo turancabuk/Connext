@@ -13,25 +13,23 @@ enum CheckInStatus { case checkedIn, checkedOut }
 
 final class LocationDetailViewModel: ObservableObject {
     
-    @Published var checkedProfiles: [Profile] = []
-    @Published var isCheckedIn = false
-    @Published var isShowingProfileModal = false
-    @Published var isLoadingView = false
-    @Published var alertItem: AlertItem?
+    @Published var checkedProfiles          : [Profile] = []
+    @Published var isCheckedIn              = false
+    @Published var isShowingProfileModal    = false
+    @Published var isLoadingView            = false
+    @Published var alertItem                : AlertItem?
     var location: Location
     let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100))]
     
-    init(location: Location) {
-        self.location = location
-    }
+    init(location: Location) {self.location = location}
     
     func getDirectionsToLocation() {
-        let placeMark = MKPlacemark(coordinate: location.location.coordinate)
-        let mapItem = MKMapItem(placemark: placeMark)
-        mapItem.name = location.name
+        let placeMark   = MKPlacemark(coordinate: location.location.coordinate)
+        let mapItem     = MKMapItem(placemark: placeMark)
+        mapItem.name     = location.name
         
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking])
     }
@@ -49,7 +47,7 @@ final class LocationDetailViewModel: ObservableObject {
                 switch result {
                 case .success(let record):
                     if let reference = record[Profile.kIsCheckedIn] as? CKRecord.Reference {
-                        isCheckedIn = reference.recordID == location.id
+                        isCheckedIn  = reference.recordID == location.id
                     }else{
                         isCheckedIn = false
                         print("isCheckedIn = false")
@@ -62,7 +60,7 @@ final class LocationDetailViewModel: ObservableObject {
     }
     func updateCheckInStatus(checkInStatus: CheckInStatus) {
             guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
-            return alertItem = AlertContext.unableToGetProfile
+            return alertItem          = AlertContext.unableToGetProfile
         }
         
         CloudKitManager.shared.fetchRecord(id: profileRecordID) { [self] result in
@@ -119,7 +117,7 @@ final class LocationDetailViewModel: ObservableObject {
         }
     }
     
-    private func showLoadingView() { self.isLoadingView = true }
-    private func hideLoadingView() { self.isLoadingView = false}
+    private func showLoadingView() {self.isLoadingView = true}
+    private func hideLoadingView() {self.isLoadingView = false}
 }
 
