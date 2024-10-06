@@ -9,14 +9,13 @@ import CloudKit
 
 final class CloudKitManager {
     
-    static let shared = CloudKitManager()
-    var userRecord: CKRecord?
-    var profileRecordID: CKRecord.ID?
+    static let shared   = CloudKitManager()
+    var userRecord      : CKRecord?
+    var profileRecordID : CKRecord.ID?
     
     private init() {}
         
     func getUserRecord() {
-        
         CKContainer.default().fetchUserRecordID { recordID, error in
             guard let recordID = recordID, error == nil else {
                 print(error!.localizedDescription)
@@ -37,8 +36,7 @@ final class CloudKitManager {
         }
     }
     
-    func fetchRecord(id: CKRecord.ID, completion: @escaping (Result<CKRecord, Error>) -> Void) {
-        CKContainer.default().publicCloudDatabase.fetch(withRecordID: id) { record, error in
+    func fetchRecord(id: CKRecord.ID, completion: @escaping (Result<CKRecord, Error>) -> Void) {        CKContainer.default().publicCloudDatabase.fetch(withRecordID: id) { record, error in
             guard let record = record, error == nil else {
                 completion(.failure(error!))
                 return
@@ -46,6 +44,7 @@ final class CloudKitManager {
             completion(.success(record))
         }
     }
+    
     static func getLocations(completed: @escaping (Result<[Location], Error>) -> Void) {
         let sortDescriptor = NSSortDescriptor(key: Location.kName, ascending: true)
         let query = CKQuery(recordType: RecordType.location, predicate: NSPredicate(value: true))
@@ -77,6 +76,7 @@ final class CloudKitManager {
     }
     
     func save(record: CKRecord, completion: @escaping (Result<CKRecord, Error>) -> Void) {
+        
         CKContainer.default().publicCloudDatabase.save(record) { record, error in
             guard let record = record, error == nil else {
                 completion(.failure(error!))
@@ -89,14 +89,13 @@ final class CloudKitManager {
     func getCheckedInProfiles(for locationID: CKRecord.ID, completion: @escaping (Result<[Profile], Error>) -> Void) {
         let reference = CKRecord.Reference(recordID: locationID, action: .none)
         let predicate = NSPredicate(format: "isCheckedIn == %@", reference)
-        let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
+        let query     = CKQuery(recordType: RecordType.profile, predicate: predicate)
         
         CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
                 guard let records = records, error == nil else {
                     completion(.failure(error!))
                     return
             }
-            
             let profiles = records.map { $0.convertToProfile() }
             completion(.success(profiles))
         }
@@ -104,7 +103,7 @@ final class CloudKitManager {
     
     func getCheckedInProfilesDictionary(completion: @escaping (Result<[CKRecord.ID : [Profile]], Error>) -> Void) {
         let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
-        let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
+        let query     = CKQuery(recordType: RecordType.profile, predicate: predicate)
         let operation = CKQueryOperation(query: query)
         
         var checkedInProfiles: [CKRecord.ID : [Profile]] = [:]
@@ -117,7 +116,36 @@ final class CloudKitManager {
         
         operation.queryCompletionBlock = { cursor, error in
             guard error == nil else { return completion(.failure(error!)) }
+            completion(.success(checkedInProfiles))
+        }
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
+
+    func getCheckedInProfilesCount(completion: @escaping (Result<[CKRecord.ID : Int], Error>) -> Void) {
+        let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
+        let query     = CKQuery(recordType: RecordType.profile, predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.desiredKeys = [Profile.kIsCheckedIn]
+        
+        var checkedInProfiles: [CKRecord.ID : Int] = [:]
+        
+        operation.recordFetchedBlock = { record in
+
+            guard let locationReference = record[Profile.kIsCheckedIn] as? CKRecord.Reference else { return }
+            if let count = checkedInProfiles[locationReference.recordID] {
+                checkedInProfiles[locationReference.recordID] = count + 1
+            }else {
+                checkedInProfiles[locationReference.recordID] = 1
+            }
             
+            operation.queryCompletionBlock = { cursor, error in
+                guard error == nil else { return completion(.failure(error!)) }
+                completion(.success(checkedInProfiles))
+            }
+        }
+        
+        operation.queryCompletionBlock = { cursor, error in
+            guard error == nil else { return completion(.failure(error!)) }
             completion(.success(checkedInProfiles))
         }
         CKContainer.default().publicCloudDatabase.add(operation)

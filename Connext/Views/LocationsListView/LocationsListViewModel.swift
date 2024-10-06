@@ -10,7 +10,7 @@ import CloudKit
 final class LocationsListViewModel: ObservableObject {
     
     @Published var checkedInProfiles: [CKRecord.ID : [Profile]] = [:]
-    @Published var isLoading: Bool = false
+    @Published var isLoading        : Bool = false
     
     func getCheckedInProfilesDictionary() {
         showLoadingView()
@@ -28,6 +28,5 @@ final class LocationsListViewModel: ObservableObject {
     }
     
     func showLoadingView() { isLoading = true }
-    
     func hideLoadingView() { isLoading = false }
 }
