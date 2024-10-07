@@ -35,12 +35,12 @@ struct Location: Identifiable {
         phoneNumber = record[Location.kPhoneNumber] as? String ?? "N/A"
     }
     
-    func createSquareImage() -> UIImage {
+    var squareImage: UIImage {
         guard let asset = squareAsset else {return PlaceHolderImage.square}
         return asset.convertToUIImage(dimension: .square)
     }
 
-    func createBannerImage() -> UIImage {
+    var bannerImage: UIImage {
         guard let asset = bannerAsset else {return PlaceHolderImage.banner}
         return asset.convertToUIImage(dimension: .banner)
     }

@@ -80,7 +80,7 @@ final class ProfileViewModel: ObservableObject {
                     lastName    = profile.lastName
                     companyName = profile.companyName
                     bio         = profile.bio
-                    avatarImage = profile.createAvatarImage()
+                    avatarImage = profile.avatarImage
                 case .failure(_):
                     alertItem = AlertContext.unableToGetProfile
                     break

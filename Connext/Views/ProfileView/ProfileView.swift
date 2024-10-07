@@ -145,7 +145,7 @@ struct ButtonView: View {
         }
         .padding(.bottom, 16)
         .navigationTitle("Profile")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(DeviceType.isiPhone8Standard ? .inline : .automatic)
         .toolbar{
             Button(action: {
                 dismissKeyboard()
