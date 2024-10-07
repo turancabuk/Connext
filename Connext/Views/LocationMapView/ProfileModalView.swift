@@ -44,7 +44,7 @@ struct ProfileModalView: View {
                     DismissButton()
                 }, alignment: .topTrailing)
             
-            Image(uiImage: profile.createAvatarImage())
+            Image(uiImage: profile.avatarImage)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 102, height: 102)

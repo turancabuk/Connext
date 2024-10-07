@@ -21,12 +21,25 @@ enum PlaceHolderImage {
 enum ImageDimension {
     case square, banner
     
-    static func getPlaceHolder(dimension: ImageDimension) -> UIImage {
-        switch dimension {
+    var placeHolder: UIImage {
+        switch self {
         case .square:
             return PlaceHolderImage.square
         case .banner:
             return PlaceHolderImage.banner
         }
     }
+}
+
+enum DeviceType {
+    enum screenSize {
+        static let width                = UIScreen.main.bounds.width
+        static let height               = UIScreen.main.bounds.height
+        static let maxLength            = max(screenSize.width, screenSize.height)
+    }
+    static let idiom                = UIDevice.current.userInterfaceIdiom
+    static let nativeScale          = UIScreen.main.nativeScale
+    static let scale                = UIScreen.main.scale
+    
+    static let isiPhone8Standard    = idiom == .phone && screenSize.maxLength == 667.0 && nativeScale == scale
 }

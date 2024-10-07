@@ -8,7 +8,7 @@
 import CoreLocation
 
 
-final class AppTabViewModel: NSObject, ObservableObject {
+class AppTabViewModel: NSObject, ObservableObject {
     
     @Published var isShowingOnboardView : Bool = false
     @Published var alertItem            : AlertItem?
