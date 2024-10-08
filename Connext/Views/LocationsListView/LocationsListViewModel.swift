@@ -12,6 +12,7 @@ extension LocationsListView {
     class LocationsListViewModel: ObservableObject {
         @Published var checkedInProfiles: [CKRecord.ID : [Profile]] = [:]
         @Published var isLoading        : Bool = false
+        @Published var alertItem        : AlertItem?
         
         func getCheckedInProfilesDictionary() {
             showLoadingView()
@@ -20,8 +21,8 @@ extension LocationsListView {
                     switch result {
                     case .success(let checkedProfiles):
                         checkedInProfiles = checkedProfiles
-                    case .failure(let error):
-                        print(error.localizedDescription)
+                    case .failure(_):
+                        alertItem = AlertContext.checkedInCount
                     }
                     hideLoadingView()
                 }

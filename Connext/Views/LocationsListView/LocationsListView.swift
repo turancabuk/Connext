@@ -29,12 +29,11 @@ struct LocationsListView: View {
                             }
                         }
                     }
-                    .navigationTitle("Grub Spots")
                 }
             }
-            .onAppear {
-                viewmodel.getCheckedInProfilesDictionary()
-            }
+            .navigationTitle("Grub Spots")
+            .onAppear {viewmodel.getCheckedInProfilesDictionary()}
+            .alert(item: $viewmodel.alertItem, content: {$0.alert})
         }
     }
 }

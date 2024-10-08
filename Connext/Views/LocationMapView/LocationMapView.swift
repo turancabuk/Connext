@@ -14,7 +14,7 @@ struct LocationMapView: View {
     @StateObject private var viewModel              = LocationMapViewModel()
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: locationManager.locations) { location in
                 MapAnnotation(coordinate: location.location.coordinate) {
                     MapAnnotationView(location: location, number: viewModel.checkedInProfiles[location.id, default: 0])
@@ -25,14 +25,11 @@ struct LocationMapView: View {
                 }
             }
             .accentColor(.brandSecondaryColor)
-            VStack {
-                Image("connext.transparent")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 40)
-                    .padding(.top)
-                Spacer()
-            }
+            Image("connext.transparent")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 40)
+                .padding(.top)
         }
         .sheet(isPresented: $viewModel.isShowingDetailView, content: {
             NavigationView {
@@ -41,9 +38,7 @@ struct LocationMapView: View {
             }
             .accentColor(.brandPrimary)
         })
-        .alert(item: $viewModel.alertItem, content: { alertItem in
-            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-        })
+        .alert(item: $viewModel.alertItem, content: { $0.alert})
         .onAppear {
             if locationManager.locations.isEmpty {viewModel.getLocations(for: locationManager)}
             viewModel.getCheckInCounts()

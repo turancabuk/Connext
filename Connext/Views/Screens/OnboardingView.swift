@@ -8,27 +8,15 @@
 import SwiftUI
 
 struct OnboardingView: View {
-        
-    @Binding var isShowingOnboardView: Bool
     
-    var body: some View {
-        ZStack {
-            Color.onboarding.ignoresSafeArea()
-            OnboardInfoView(showingOnboardView: $isShowingOnboardView)
-        }
-    }
-}
-
-struct OnboardInfoView: View {
-    
-    @Binding var showingOnboardView: Bool
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack(spacing: 24) {
             HStack {
                 Spacer()
                 Button(action: {
-                    showingOnboardView = false
+                    self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     DismissButton()
                 })
@@ -42,7 +30,7 @@ struct OnboardInfoView: View {
                 .frame(width: 180, height: 220)
                 .shadow(color: .gray, radius: 14)
                 .padding(.vertical, 12)
-
+            
             VStack(alignment: .leading, spacing: 24) {
                 createCustomOnboardingCell(imageName: "building.2.crop.circle", titleText: "Restaurant Locations", DescriptionText: "Find places to dine around the convention center")
                 createCustomOnboardingCell(imageName: "checkmark.circle", titleText: "Check In", DescriptionText: "Let other iOS Devs know where you are")
@@ -52,8 +40,9 @@ struct OnboardInfoView: View {
         }
     }
 }
+
 // Factory Method.
-func createCustomOnboardingCell(imageName: String, titleText: String, DescriptionText: String) -> some View {
+fileprivate func createCustomOnboardingCell(imageName: String, titleText: String, DescriptionText: String) -> some View {
     HStack(spacing: 48) {
         Image(systemName: imageName)
             .resizable()
@@ -63,7 +52,7 @@ func createCustomOnboardingCell(imageName: String, titleText: String, Descriptio
         VStack(alignment: .leading, spacing: 6) {
             Text(titleText)
                 .bold()
-                .foregroundStyle(.white)
+                .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.75)
             Text(DescriptionText)
@@ -76,5 +65,5 @@ func createCustomOnboardingCell(imageName: String, titleText: String, Descriptio
     .padding(.horizontal, 48)
 }
 #Preview {
-    OnboardingView(isShowingOnboardView: .constant(true))
+    OnboardingView()
 }
