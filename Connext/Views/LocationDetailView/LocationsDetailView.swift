@@ -102,23 +102,13 @@ struct LocationDetailView: View {
             viewModel.getCheckedProfiles()
             viewModel.getCheckedInStatus()
         }
-        .alert(item: $viewModel.alertItem, content: { alertItem in
-            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-        })
+        .alert(item: $viewModel.alertItem, content: { $0.alert})
         .navigationTitle(viewModel.location.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-struct LocationDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            LocationDetailView(viewModel: LocationDetailViewModel(location: Location(record: MockData.location)))
-        }
-    }
-}
-
-struct LocationActionButton: View {
+fileprivate struct LocationActionButton: View {
     
     var color: Color
     var imageName: String
@@ -140,7 +130,7 @@ struct LocationActionButton: View {
 }
 
 
-struct FirstNameAvatarView: View {
+fileprivate struct FirstNameAvatarView: View {
     
     var profile: Profile
     
@@ -156,7 +146,7 @@ struct FirstNameAvatarView: View {
     }
 }
 
-struct BannerImageView: View {
+fileprivate struct BannerImageView: View {
     
     var image: UIImage
     
@@ -168,7 +158,7 @@ struct BannerImageView: View {
     }
 }
 
-struct AddressView: View {
+fileprivate struct AddressView: View {
     
     var address: String
     
@@ -179,7 +169,7 @@ struct AddressView: View {
     }
 }
 
-struct DescriptionView: View {
+fileprivate struct DescriptionView: View {
     
     var text: String
     
@@ -189,5 +179,11 @@ struct DescriptionView: View {
             .minimumScaleFactor(0.75)
             .frame(height: 70)
             .padding(.horizontal)
+    }
+}
+
+#Preview  {
+    NavigationView {
+        LocationDetailView(viewModel: LocationDetailViewModel(location: Location(record: MockData.location)))
     }
 }

@@ -20,7 +20,7 @@ struct ProfileView: View {
             VStack{
                 PersonalInfoView(photosPickerItem: $photosPickerItem, viewmodel: viewmodel)
                 BioInfoView(viewmodel: viewmodel)
-                ButtonView(viewmodel: viewmodel)
+                ButtonView(viewmodel: viewmodel, color: viewmodel.isCheckedIn ? .brandPrimary : .gray)
             }
             if viewmodel.isLoadingView {LoadingView()}
         }
@@ -30,10 +30,10 @@ struct ProfileView: View {
         }
     }
 }
-struct PersonalInfoView: View {
+fileprivate struct PersonalInfoView: View {
     
     @Binding var photosPickerItem: PhotosPickerItem?
-    @StateObject var viewmodel: ProfileViewModel
+    @StateObject var viewmodel: ProfileView.ProfileViewModel
     
     var body: some View {
         ZStack {
@@ -82,9 +82,9 @@ struct PersonalInfoView: View {
     }
 }
 
-struct BioInfoView : View {
+fileprivate struct BioInfoView : View {
     
-    @StateObject var viewmodel: ProfileViewModel
+    @StateObject var viewmodel: ProfileView.ProfileViewModel
     
     var body: some View {
         HStack {
@@ -130,9 +130,10 @@ struct BioInfoView : View {
     }
 }
 
-struct ButtonView: View {
+fileprivate struct ButtonView: View {
     
-    @StateObject var viewmodel: ProfileViewModel
+    @StateObject var viewmodel: ProfileView.ProfileViewModel
+    var color                 : Color = .brandPrimaryColor
     
     var body: some View {
         HStack {Button{ viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()} label: {
@@ -140,7 +141,7 @@ struct ButtonView: View {
                 .bold()
                 .frame(width: 280, height: 50)
                 .foregroundColor(.white)
-                .background(.brandPrimary)
+                .background(color)
                 .cornerRadius(20)
         }
         .padding(.bottom, 16)
@@ -153,9 +154,7 @@ struct ButtonView: View {
                 Image(systemName: "keyboard.chevron.compact.down")
             })
         }
-        .alert(item: $viewmodel.alertItem) { alertItem in
-            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-        }
+        .alert(item: $viewmodel.alertItem, content: { $0.alert})
         }
     }
 }

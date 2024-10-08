@@ -13,8 +13,8 @@ extension LocationMapView {
     
     final class LocationMapViewModel:  ObservableObject {
         @Published var checkedInProfiles    : [CKRecord.ID : Int] = [:]
-        @Published var isShowingDetailView  = false
         @Published var alertItem            : AlertItem?
+        @Published var isShowingDetailView  = false
         @Published var region               = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.331516,longitude: -121.891054),
                                                                  span: MKCoordinateSpan(latitudeDelta: 0.01,longitudeDelta: 0.01))
         
@@ -34,12 +34,12 @@ extension LocationMapView {
         
         func getCheckInCounts() {
             CloudKitManager.shared.getCheckedInProfilesCount { result in
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [self] in
                     switch result {
                     case .success(let checkedProfiles):
-                        self.checkedInProfiles = checkedProfiles
+                        checkedInProfiles = checkedProfiles
                     case .failure(_):
-                        // Show alert
+                        alertItem = AlertContext.checkedInCount
                         break
                     }
                 }

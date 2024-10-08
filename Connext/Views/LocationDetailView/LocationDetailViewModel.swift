@@ -12,7 +12,6 @@ import CloudKit
 enum CheckInStatus { case checkedIn, checkedOut }
 
 final class LocationDetailViewModel: ObservableObject {
-    
     @Published var checkedProfiles          : [Profile] = []
     @Published var isCheckedIn              = false
     @Published var isShowingProfileModal    = false
@@ -58,6 +57,7 @@ final class LocationDetailViewModel: ObservableObject {
             }
         }
     }
+    
     func updateCheckInStatus(checkInStatus: CheckInStatus) {
             guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
             return alertItem          = AlertContext.unableToGetProfile
@@ -89,7 +89,7 @@ final class LocationDetailViewModel: ObservableObject {
                                 self.checkedProfiles.removeAll(where: { $0.id == profile.id })
                             }
                             
-                            isCheckedIn = checkInStatus == .checkedIn
+                            isCheckedIn.toggle()
 
                         case .failure(_):
                             alertItem = AlertContext.profileUpdatingFailure
