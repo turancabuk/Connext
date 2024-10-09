@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocationUI
 
 struct LocationMapView: View {
     
@@ -24,7 +25,7 @@ struct LocationMapView: View {
                         }
                 }
             }
-            .accentColor(.brandSecondaryColor)
+            .accentColor(.orange)
             Image("connext.transparent")
                 .resizable()
                 .scaledToFit()
@@ -38,6 +39,17 @@ struct LocationMapView: View {
             }
             .accentColor(.brandPrimary)
         })
+        .overlay(alignment: .bottomLeading) {
+            LocationButton(.currentLocation) {
+                viewModel.requestAllowOnceLocationPermission()
+            }
+            .foregroundColor(.white)
+            .symbolVariant(.fill)
+            .tint(.blue)
+            .labelStyle(.iconOnly)
+            .cornerRadius(.infinity)
+            .padding(EdgeInsets(top: 0, leading: 24, bottom: 40, trailing: 0))
+        }
         .alert(item: $viewModel.alertItem, content: { $0.alert})
         .onAppear {
             if locationManager.locations.isEmpty {viewModel.getLocations(for: locationManager)}

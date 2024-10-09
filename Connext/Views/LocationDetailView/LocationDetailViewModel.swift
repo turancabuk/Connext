@@ -17,7 +17,8 @@ final class LocationDetailViewModel: ObservableObject {
     @Published var isShowingProfileModal    = false
     @Published var isLoadingView            = false
     @Published var alertItem                : AlertItem?
-    var location: Location
+    var location                            : Location
+    var selectedProfile                     : Profile?
     let columns = [GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
                    GridItem(.flexible(minimum: 20, maximum: 100)),
@@ -114,6 +115,15 @@ final class LocationDetailViewModel: ObservableObject {
                 }
                 hideLoadingView()
             }
+        }
+    }
+    
+    func show(_ profile: Profile, in sizeCategory: ContentSizeCategory) {
+        selectedProfile = profile
+        if sizeCategory >= .accessibilityMedium {
+            isShowingProfileModal = true
+        } else {
+            isShowingProfileModal = true
         }
     }
     

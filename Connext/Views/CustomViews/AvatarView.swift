@@ -15,6 +15,7 @@ struct AvatarView: View {
     var body: some View {
         Image(uiImage: image)
             .resizable()
+            .aspectRatio(contentMode: .fill)
             .frame(width: size, height: size)
             .cornerRadius(.infinity)
             .foregroundStyle(.brandPrimary)

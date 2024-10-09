@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LocationDetailView: View {
     
+    @Environment(\.sizeCategory) var sizeCategory
     @ObservedObject var viewModel: LocationDetailViewModel
     
     var body: some View {
@@ -73,6 +74,7 @@ struct LocationDetailView: View {
                                     FirstNameAvatarView(profile: profile)
                                         .onTapGesture {
                                             viewModel.isShowingProfileModal = true
+                                            viewModel.show(profile, in: self.sizeCategory)
                                         }
                                 }
                             })
@@ -92,7 +94,7 @@ struct LocationDetailView: View {
                     .zIndex(1)
                 
                 ProfileModalView(isShowingProfileModal: $viewModel.isShowingProfileModal,
-                                 profile: Profile(record: MockData.profile))
+                                 profile: viewModel.selectedProfile!)
                 .transition(.opacity.combined(with: .slide))
                 .animation(.easeOut)
                 .zIndex(2)

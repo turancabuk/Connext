@@ -20,7 +20,7 @@ struct ProfileView: View {
             VStack{
                 PersonalInfoView(photosPickerItem: $photosPickerItem, viewmodel: viewmodel)
                 BioInfoView(viewmodel: viewmodel)
-                ButtonView(viewmodel: viewmodel, color: viewmodel.isCheckedIn ? .brandPrimary : .gray)
+                ButtonView(viewmodel: viewmodel, color: .brandPrimary)
             }
             if viewmodel.isLoadingView {LoadingView()}
         }
@@ -46,6 +46,7 @@ fileprivate struct PersonalInfoView: View {
                     PhotosPicker(selection: $photosPickerItem, matching: .images) {
                         Image(uiImage: viewmodel.avatarImage ?? UIImage(imageLiteralResourceName: "person"))
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 92, height: 92)
                             .cornerRadius(.infinity)
                             .padding(.horizontal, 12)
