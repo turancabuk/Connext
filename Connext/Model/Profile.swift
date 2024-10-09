@@ -32,7 +32,7 @@ struct Profile: Identifiable {
         isCheckedIn     = record[Profile.kIsCheckedIn] as? CKRecord.Reference
     }
     
-    func createAvatarImage() -> UIImage {
+    var avatarImage: UIImage {
         guard let avatar = avatar else {return PlaceHolderImage.avatar}
         return avatar.convertToUIImage(dimension: .square)
     }

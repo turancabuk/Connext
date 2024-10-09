@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Color {
-    static let brandPrimaryColor = Color("brandPrimary")
-    static let onboardingColor = Color("onboardingColor")
-    static let brandSecondaryColor = Color(.systemPink)
+    static let brandPrimaryColor    = Color("brandPrimary")
+    static let onboardingColor      = Color("onboardingColor")
+    static let brandSecondaryColor  = Color(.systemPink)
 }

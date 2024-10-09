@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ConnextButton: View {
     
-    var title: String?
-    var width: CGFloat?
-    var height: CGFloat?
+    var title       : String?
+    var width       : CGFloat?
+    var height      : CGFloat?
     var cornerRadius: CGFloat?
     
     var body: some View {
@@ -21,8 +21,7 @@ struct ConnextButton: View {
                 .frame(width: width, height: height)
                 .foregroundColor(.white)
                 .background(.brandPrimary)
-                .cornerRadius(cornerRadius ?? 0)
-        })
+                .cornerRadius(cornerRadius ?? 0)})
     }
 }
 

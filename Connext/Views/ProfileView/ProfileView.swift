@@ -20,11 +20,9 @@ struct ProfileView: View {
             VStack{
                 PersonalInfoView(photosPickerItem: $photosPickerItem, viewmodel: viewmodel)
                 BioInfoView(viewmodel: viewmodel)
-                ButtonView(viewmodel: viewmodel)
+                ButtonView(viewmodel: viewmodel, color: .brandPrimary)
             }
-            if viewmodel.isLoadingView {
-                LoadingView()
-            }
+            if viewmodel.isLoadingView {LoadingView()}
         }
         .onAppear {
             viewmodel.getProfile()
@@ -32,10 +30,10 @@ struct ProfileView: View {
         }
     }
 }
-struct PersonalInfoView: View {
+fileprivate struct PersonalInfoView: View {
     
     @Binding var photosPickerItem: PhotosPickerItem?
-    @StateObject var viewmodel: ProfileViewModel
+    @StateObject var viewmodel: ProfileView.ProfileViewModel
     
     var body: some View {
         ZStack {
@@ -48,6 +46,7 @@ struct PersonalInfoView: View {
                     PhotosPicker(selection: $photosPickerItem, matching: .images) {
                         Image(uiImage: viewmodel.avatarImage ?? UIImage(imageLiteralResourceName: "person"))
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 92, height: 92)
                             .cornerRadius(.infinity)
                             .padding(.horizontal, 12)
@@ -84,9 +83,9 @@ struct PersonalInfoView: View {
     }
 }
 
-struct BioInfoView : View {
+fileprivate struct BioInfoView : View {
     
-    @StateObject var viewmodel: ProfileViewModel
+    @StateObject var viewmodel: ProfileView.ProfileViewModel
     
     var body: some View {
         HStack {
@@ -101,9 +100,7 @@ struct BioInfoView : View {
                 .foregroundColor(.secondary)
             Spacer()
             if viewmodel.isCheckedIn {
-                Button {
-                    viewmodel.checkOut()
-                } label: {
+                Button {viewmodel.checkOut()} label: {
                     ZStack{
                         Rectangle()
                             .frame(width: 96, height: 28)
@@ -134,35 +131,31 @@ struct BioInfoView : View {
     }
 }
 
-struct ButtonView: View {
+fileprivate struct ButtonView: View {
     
-    @StateObject var viewmodel: ProfileViewModel
+    @StateObject var viewmodel: ProfileView.ProfileViewModel
+    var color                 : Color = .brandPrimaryColor
     
     var body: some View {
-        HStack {
-            Button{
-                viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()
-            } label: {
-                Text(viewmodel.profileContext == .create ? "Create Profile" : "Update Profile")
-                    .bold()
-                    .frame(width: 280, height: 50)
-                    .foregroundColor(.white)
-                    .background(.brandPrimary)
-                    .cornerRadius(20)
-            }
-            .padding(.bottom, 16)
-            .navigationTitle("Profile")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar{
-                Button(action: {
-                    dismissKeyboard()
-                }, label: {
-                    Image(systemName: "keyboard.chevron.compact.down")
-                })
-            }
-            .alert(item: $viewmodel.alertItem) { alertItem in
-                Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-            }
+        HStack {Button{ viewmodel.profileContext == .create ? viewmodel.createProfile() : viewmodel.updateProfile()} label: {
+            Text(viewmodel.profileContext == .create ? "Create Profile" : "Update Profile")
+                .bold()
+                .frame(width: 280, height: 50)
+                .foregroundColor(.white)
+                .background(color)
+                .cornerRadius(20)
+        }
+        .padding(.bottom, 16)
+        .navigationTitle("Profile")
+        .navigationBarTitleDisplayMode(DeviceType.isiPhone8Standard ? .inline : .automatic)
+        .toolbar{
+            Button(action: {
+                dismissKeyboard()
+            }, label: {
+                Image(systemName: "keyboard.chevron.compact.down")
+            })
+        }
+        .alert(item: $viewmodel.alertItem, content: { $0.alert})
         }
     }
 }

@@ -7,49 +7,53 @@
 
 import SwiftUI
 import MapKit
+import CoreLocationUI
 
 struct LocationMapView: View {
     
-    @EnvironmentObject private var locationManager: LocationManager
-    @StateObject private var viewModel = LocationMapViewModel()
+    @EnvironmentObject private var locationManager  : LocationManager
+    @StateObject private var viewModel              = LocationMapViewModel()
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: locationManager.locations) { location in
                 MapAnnotation(coordinate: location.location.coordinate) {
-                    MapAnnotationView(location: location)
+                    MapAnnotationView(location: location, number: viewModel.checkedInProfiles[location.id, default: 0])
                         .onTapGesture {
                             locationManager.selectedLocation = location
                             viewModel.isShowingDetailView = true
                         }
                 }
             }
-            .accentColor(.brandSecondaryColor)
-            VStack {
-                Image("connext.transparent")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 40)
-                    .padding(.top)
-                Spacer()
-            }
+            .accentColor(.orange)
+            Image("connext.transparent")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 40)
+                .padding(.top)
         }
         .sheet(isPresented: $viewModel.isShowingDetailView, content: {
             NavigationView {
                 LocationDetailView(viewModel: LocationDetailViewModel(location: locationManager.selectedLocation!))
-                    .toolbar {
-                        Button("Close") {viewModel.isShowingDetailView = false}
-                    }
+                    .toolbar {Button("Close") {viewModel.isShowingDetailView = false}}
             }
             .accentColor(.brandPrimary)
         })
-        .alert(item: $viewModel.alertItem, content: { alertItem in
-            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-        })
-        .onAppear {
-            if locationManager.locations.isEmpty {
-                viewModel.getLocations(for: locationManager)
+        .overlay(alignment: .bottomLeading) {
+            LocationButton(.currentLocation) {
+                viewModel.requestAllowOnceLocationPermission()
             }
+            .foregroundColor(.white)
+            .symbolVariant(.fill)
+            .tint(.blue)
+            .labelStyle(.iconOnly)
+            .cornerRadius(.infinity)
+            .padding(EdgeInsets(top: 0, leading: 24, bottom: 40, trailing: 0))
+        }
+        .alert(item: $viewModel.alertItem, content: { $0.alert})
+        .onAppear {
+            if locationManager.locations.isEmpty {viewModel.getLocations(for: locationManager)}
+            viewModel.getCheckInCounts()
         }
     }
 }

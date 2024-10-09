@@ -9,14 +9,14 @@ import CloudKit
 import UIKit
 
 struct Location: Identifiable {
-    static let kAdress = "adress"
+    static let kAdress      = "adress"
     static let kDescription = "description"
-    static let kName = "name"
+    static let kName        = "name"
     static let kPhoneNumber = "phoneNumber"
-    static let kWebsiteURL = "websiteURL"
+    static let kWebsiteURL  = "websiteURL"
     static let kBannerAsset = "bannerAsset"
     static let kSquareAsset = "squareAsset"
-    static let kLocation = "Location"
+    static let kLocation    = "Location"
 
     let adress, description, name, phoneNumber, websiteURL : String
     let bannerAsset, squareAsset: CKAsset!
@@ -35,12 +35,12 @@ struct Location: Identifiable {
         phoneNumber = record[Location.kPhoneNumber] as? String ?? "N/A"
     }
     
-    func createSquareImage() -> UIImage {
+    var squareImage: UIImage {
         guard let asset = squareAsset else {return PlaceHolderImage.square}
         return asset.convertToUIImage(dimension: .square)
     }
 
-    func createBannerImage() -> UIImage {
+    var bannerImage: UIImage {
         guard let asset = bannerAsset else {return PlaceHolderImage.banner}
         return asset.convertToUIImage(dimension: .banner)
     }

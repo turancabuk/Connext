@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileModalView: View {
     
     @Binding var isShowingProfileModal: Bool
-    var profile: Profile
+    var profile                       : Profile
     
     var body: some View {
         ZStack {
@@ -44,7 +44,7 @@ struct ProfileModalView: View {
                     DismissButton()
                 }, alignment: .topTrailing)
             
-            Image(uiImage: profile.createAvatarImage())
+            Image(uiImage: profile.avatarImage)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 102, height: 102)

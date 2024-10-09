@@ -10,12 +10,13 @@ import SwiftUI
 
 struct LocationDetailView: View {
     
+    @Environment(\.sizeCategory) var sizeCategory
     @ObservedObject var viewModel: LocationDetailViewModel
     
     var body: some View {
         ZStack {
             VStack(spacing: 16) {
-                BannerImageView(image: viewModel.location.createBannerImage())
+                BannerImageView(image: viewModel.location.bannerImage)
                 
                 HStack {
                     AddressView(address: viewModel.location.adress)
@@ -73,6 +74,7 @@ struct LocationDetailView: View {
                                     FirstNameAvatarView(profile: profile)
                                         .onTapGesture {
                                             viewModel.isShowingProfileModal = true
+                                            viewModel.show(profile, in: self.sizeCategory)
                                         }
                                 }
                             })
@@ -92,7 +94,7 @@ struct LocationDetailView: View {
                     .zIndex(1)
                 
                 ProfileModalView(isShowingProfileModal: $viewModel.isShowingProfileModal,
-                                 profile: Profile(record: MockData.profile))
+                                 profile: viewModel.selectedProfile!)
                 .transition(.opacity.combined(with: .slide))
                 .animation(.easeOut)
                 .zIndex(2)
@@ -102,23 +104,13 @@ struct LocationDetailView: View {
             viewModel.getCheckedProfiles()
             viewModel.getCheckedInStatus()
         }
-        .alert(item: $viewModel.alertItem, content: { alertItem in
-            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-        })
+        .alert(item: $viewModel.alertItem, content: { $0.alert})
         .navigationTitle(viewModel.location.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-struct LocationDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            LocationDetailView(viewModel: LocationDetailViewModel(location: Location(record: MockData.location)))
-        }
-    }
-}
-
-struct LocationActionButton: View {
+fileprivate struct LocationActionButton: View {
     
     var color: Color
     var imageName: String
@@ -140,13 +132,13 @@ struct LocationActionButton: View {
 }
 
 
-struct FirstNameAvatarView: View {
+fileprivate struct FirstNameAvatarView: View {
     
     var profile: Profile
     
     var body: some View {
         VStack {
-            AvatarView(image: profile.createAvatarImage(), size: 64)
+            AvatarView(image: profile.avatarImage, size: 64)
             
             Text(profile.firstName)
                 .bold()
@@ -156,7 +148,7 @@ struct FirstNameAvatarView: View {
     }
 }
 
-struct BannerImageView: View {
+fileprivate struct BannerImageView: View {
     
     var image: UIImage
     
@@ -168,7 +160,7 @@ struct BannerImageView: View {
     }
 }
 
-struct AddressView: View {
+fileprivate struct AddressView: View {
     
     var address: String
     
@@ -179,7 +171,7 @@ struct AddressView: View {
     }
 }
 
-struct DescriptionView: View {
+fileprivate struct DescriptionView: View {
     
     var text: String
     
@@ -189,5 +181,11 @@ struct DescriptionView: View {
             .minimumScaleFactor(0.75)
             .frame(height: 70)
             .padding(.horizontal)
+    }
+}
+
+#Preview  {
+    NavigationView {
+        LocationDetailView(viewModel: LocationDetailViewModel(location: Location(record: MockData.location)))
     }
 }
