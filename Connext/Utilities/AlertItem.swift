@@ -66,7 +66,7 @@ struct AlertContext {
     
     static let unableToGetProfile = AlertItem(
         title         : Text( "Error!"),
-        message       : Text("Unable to retrieve profile"),
+        message       : Text("You have no profile. \nPlease create one."),
         dismissButton : .default(Text("Ok"))
     )
     

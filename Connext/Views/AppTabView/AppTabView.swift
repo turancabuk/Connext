@@ -20,14 +20,14 @@ struct AppTabView: View {
                 .tabItem {Label("Locations", systemImage: "building")}
             
             NavigationView {ProfileView()}
-            .tabItem {Label("Profile", systemImage: "person")}
+                .tabItem {Label("Profile", systemImage: "person")}
         }
         .onAppear {
             CloudKitManager.shared.getUserRecord()
-            viewModel.runStartUpChecks()
+            viewModel.checkIfHasSeenOnboard()
         }
         .accentColor(.brandPrimary)
-        .sheet(isPresented: $viewModel.isShowingOnboardView, onDismiss: viewModel.checkIfLocationServiceIsEnabled,  content: {
+        .sheet(isPresented: $viewModel.isShowingOnboardView,  content: {
             OnboardingView()
         })
     }

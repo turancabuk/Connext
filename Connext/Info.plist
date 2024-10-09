@@ -6,8 +6,6 @@
 	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string></string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Connext app wants to know your location</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict/>
