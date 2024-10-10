@@ -8,7 +8,7 @@
 import CloudKit
 
 extension LocationsListView {
-    
+    @MainActor
     class LocationsListViewModel: ObservableObject {
         @Published var checkedInProfiles: [CKRecord.ID : [Profile]] = [:]
         @Published var isLoading        : Bool = false
@@ -16,15 +16,12 @@ extension LocationsListView {
         
         func getCheckedInProfilesDictionary() {
             showLoadingView()
-            CloudKitManager.shared.getCheckedInProfilesDictionary { result in
-                DispatchQueue.main.async { [self] in
-                    switch result {
-                    case .success(let checkedProfiles):
-                        checkedInProfiles = checkedProfiles
-                    case .failure(_):
-                        alertItem = AlertContext.checkedInCount
-                    }
+            Task {
+                do{
+                    checkedInProfiles = try await CloudKitManager.shared.getCheckedInProfilesDictionary()
                     hideLoadingView()
+                }catch {
+                    alertItem = AlertContext.checkedInCount
                 }
             }
         }
