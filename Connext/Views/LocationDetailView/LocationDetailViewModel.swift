@@ -11,6 +11,7 @@ import CloudKit
 
 enum CheckInStatus { case checkedIn, checkedOut }
 
+@MainActor
 final class LocationDetailViewModel: ObservableObject {
     @Published var checkedProfiles          : [Profile] = []
     @Published var isCheckedIn              = false
@@ -60,7 +61,7 @@ final class LocationDetailViewModel: ObservableObject {
     }
     
     func updateCheckInStatus(checkInStatus: CheckInStatus) {
-            guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
+        guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
             return alertItem          = AlertContext.unableToGetProfile
         }
         
@@ -78,23 +79,32 @@ final class LocationDetailViewModel: ObservableObject {
                     }
                 }
                 
-                CloudKitManager.shared.save(record: record) { result in
-                    DispatchQueue.main.async { [self] in
-                        switch result {
-                        case .success(let record):
-                            let profile = Profile(record: record)
-                            switch checkInStatus {
-                            case .checkedIn:
-                                self.checkedProfiles.append(profile)
-                            case .checkedOut:
-                                self.checkedProfiles.removeAll(where: { $0.id == profile.id })
-                            }
-                            
-                            isCheckedIn.toggle()
-
-                        case .failure(_):
-                            alertItem = AlertContext.profileUpdatingFailure
-                        }
+                //                CloudKitManager.shared.save(record: record) { result in
+                //                    DispatchQueue.main.async { [self] in
+                //                        switch result {
+                //                        case .success(let record):
+                //                            let profile = Profile(record: record)
+                //                            switch checkInStatus {
+                //                            case .checkedIn:
+                //                                self.checkedProfiles.append(profile)
+                //                            case .checkedOut:
+                //                                self.checkedProfiles.removeAll(where: { $0.id == profile.id })
+                //                            }
+                //
+                //                            isCheckedIn.toggle()
+                //
+                //                        case .failure(_):
+                //                            alertItem = AlertContext.profileUpdatingFailure
+                //                        }
+                //                    }
+                //                }
+                Task {
+                    let profile = try await CloudKitManager.shared.getCheckedInProfiles(for: location.id)
+                    switch checkInStatus {
+                    case .checkedIn:
+                        self.checkedProfiles.append(contentsOf: profile)
+                    case .checkedOut:
+                        self.checkedProfiles.removeAll(where: { $0.id == profile })
                     }
                 }
             case .failure(_):
@@ -105,15 +115,14 @@ final class LocationDetailViewModel: ObservableObject {
     
     func getCheckedProfiles() {
         showLoadingView()
-        CloudKitManager.shared.getCheckedInProfiles(for: location.id) { result in
-            DispatchQueue.main.async { [self] in
-                switch result {
-                case .success(let profiles):
-                    checkedProfiles = profiles
-                case .failure(_):
-                    alertItem = AlertContext.unableToGetCheckInorOut
-                }
+        
+        Task {
+            do{
+                checkedProfiles = try await CloudKitManager.shared.getCheckedInProfiles(for: location.id)
                 hideLoadingView()
+            }catch{
+                hideLoadingView()
+                alertItem = AlertContext.unableToGetCheckInorOut
             }
         }
     }

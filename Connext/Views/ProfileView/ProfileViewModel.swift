@@ -42,21 +42,29 @@ extension ProfileView {
             userRecord["ConnextProfile"] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
             
             showLoadingView()
-            CloudKitManager.shared.batchSave(records: [userRecord, profileRecord]) { result in
-                DispatchQueue.main.async {
-                    self.hideLoadingView()
+//            CloudKitManager.shared.batchSave(records: [userRecord, profileRecord]) { result in
+//                DispatchQueue.main.async {
+//                    self.hideLoadingView()
+//                    
+//                    switch result {
+//                    case .success(let records):
+//                        for record in records where record.recordType == RecordType.profile {
+//                            self.existingProfileRecord = record
+//                            CloudKitManager.shared.profileRecordID = record.recordID
+//                        }
+//                        self.alertItem = AlertContext.profileSavingSuccesfull
+//                    case .failure(_):
+//                        self.alertItem = AlertContext.profileSavingFailure
+//                        break
+//                    }
+//                }
+//            }
+            
+            Task {
+                do{
+                    existingProfileRecord = try await CloudKitManager.shared.batchSave(for: )
+                }catch{
                     
-                    switch result {
-                    case .success(let records):
-                        for record in records where record.recordType == RecordType.profile {
-                            self.existingProfileRecord = record
-                            CloudKitManager.shared.profileRecordID = record.recordID
-                        }
-                        self.alertItem = AlertContext.profileSavingSuccesfull
-                    case .failure(_):
-                        self.alertItem = AlertContext.profileSavingFailure
-                        break
-                    }
                 }
             }
         }

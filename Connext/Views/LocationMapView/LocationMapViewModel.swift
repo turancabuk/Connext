@@ -10,7 +10,7 @@ import CloudKit
 import MapKit
 
 extension LocationMapView {
-    
+    @MainActor
     final class LocationMapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
        
         @Published var checkedInProfiles    : [CKRecord.ID : Int] = [:]
@@ -27,28 +27,21 @@ extension LocationMapView {
         }
         
         func getLocations(for locationManager: LocationManager) {
-            CloudKitManager.getLocations { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let locations):
-                        locationManager.locations = locations
-                    case .failure(_):
-                        self.alertItem = AlertContext.unableToGetLocations
-                    }
+            Task {
+                do{
+                    locationManager.locations = try await CloudKitManager.shared.getLocations()
+                }catch{
+                    alertItem = AlertContext.unableToGetLocations
                 }
             }
         }
         
         func getCheckInCounts() {
-            CloudKitManager.shared.getCheckedInProfilesCount { result in
-                DispatchQueue.main.async { [self] in
-                    switch result {
-                    case .success(let checkedProfiles):
-                        checkedInProfiles = checkedProfiles
-                    case .failure(_):
-                        alertItem = AlertContext.checkedInCount
-                        break
-                    }
+            Task {
+                do{
+                    checkedInProfiles = try await CloudKitManager.shared.getCheckedInProfilesCount()
+                }catch{
+                    alertItem = AlertContext.checkedInCount
                 }
             }
         }
