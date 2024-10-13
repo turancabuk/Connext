@@ -22,6 +22,7 @@ extension LocationsListView {
                     hideLoadingView()
                 }catch {
                     alertItem = AlertContext.checkedInCount
+                    hideLoadingView()
                 }
             }
         }
