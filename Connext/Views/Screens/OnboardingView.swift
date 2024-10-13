@@ -10,9 +10,10 @@ import SwiftUI
 struct OnboardingView: View {
     
     @Environment(\.presentationMode) var presentationMode
+    private var viewmodel = OnboardingViewModel()
     
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 12) {
             HStack {
                 Spacer()
                 Button(action: {
@@ -29,41 +30,17 @@ struct OnboardingView: View {
                 .cornerRadius(24)
                 .frame(width: 180, height: 220)
                 .shadow(color: .gray, radius: 14)
-                .padding(.vertical, 12)
             
             VStack(alignment: .leading, spacing: 24) {
-                createCustomOnboardingCell(imageName: "building.2.crop.circle", titleText: "Restaurant Locations", DescriptionText: "Find places to dine around the convention center")
-                createCustomOnboardingCell(imageName: "checkmark.circle", titleText: "Check In", DescriptionText: "Let other iOS Devs know where you are")
-                createCustomOnboardingCell(imageName: "person.2.circle", titleText: "Find Friends", DescriptionText: "See where other iOS Devs are and join the party")
+                viewmodel.createCustomOnboardingCell(imageName: "building.2.crop.circle", titleText: "Restaurant Locations", DescriptionText: "Find places to dine around the convention center")
+                viewmodel.createCustomOnboardingCell(imageName: "checkmark.circle", titleText: "Check In", DescriptionText: "Let other Devs know where you are")
+                viewmodel.createCustomOnboardingCell(imageName: "person.2.circle", titleText: "Find Friends", DescriptionText: "See where other iOS Devs are and join the party")
             }
             Spacer()
         }
     }
 }
 
-// Factory Method.
-fileprivate func createCustomOnboardingCell(imageName: String, titleText: String, DescriptionText: String) -> some View {
-    HStack(spacing: 48) {
-        Image(systemName: imageName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 62, height: 62)
-            .foregroundColor(Color.brandPrimaryColor)
-        VStack(alignment: .leading, spacing: 6) {
-            Text(titleText)
-                .bold()
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.75)
-            Text(DescriptionText)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.gray)
-                .lineLimit(2)
-                .minimumScaleFactor(0.75)
-        }
-    }
-    .padding(.horizontal, 48)
-}
 #Preview {
     OnboardingView()
 }

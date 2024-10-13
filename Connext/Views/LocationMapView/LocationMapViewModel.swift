@@ -10,13 +10,13 @@ import CloudKit
 import MapKit
 
 extension LocationMapView {
-    @MainActor
+    
     final class LocationMapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
-       
         @Published var checkedInProfiles    : [CKRecord.ID : Int] = [:]
         @Published var alertItem            : AlertItem?
-        let deviceLocationManager           = CLLocationManager()
         @Published var isShowingDetailView  = false
+        @Published var isLoadingView        = false
+        let deviceLocationManager           = CLLocationManager()
         @Published var region               = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.331516,longitude: -121.891054),
                                                                  span: MKCoordinateSpan(latitudeDelta: 0.01,longitudeDelta: 0.01))
         
@@ -26,16 +26,21 @@ extension LocationMapView {
             deviceLocationManager.delegate = self
         }
         
+        @MainActor
         func getLocations(for locationManager: LocationManager) {
+            showLoadingView()
             Task {
                 do{
                     locationManager.locations = try await CloudKitManager.shared.getLocations()
+                    hideLoadingView()
                 }catch{
+                    hideLoadingView()
                     alertItem = AlertContext.unableToGetLocations
                 }
             }
         }
         
+        @MainActor
         func getCheckInCounts() {
             Task {
                 do{
@@ -59,7 +64,10 @@ extension LocationMapView {
         }
         
         func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
-            
+            print("did fail with error")
         }
+        
+        func showLoadingView() { isLoadingView = true }
+        func hideLoadingView() { isLoadingView = false}
     }
 }

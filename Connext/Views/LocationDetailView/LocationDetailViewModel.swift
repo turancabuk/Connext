@@ -43,71 +43,52 @@ final class LocationDetailViewModel: ObservableObject {
     func getCheckedInStatus() {
         guard let profileRecordID = CloudKitManager.shared.profileRecordID else {return}
         
-        CloudKitManager.shared.fetchRecord(id: profileRecordID) { [self] result in
-            DispatchQueue.main.async { [self] in
-                switch result {
-                case .success(let record):
-                    if let reference = record[Profile.kIsCheckedIn] as? CKRecord.Reference {
-                        isCheckedIn  = reference.recordID == location.id
-                    }else{
-                        isCheckedIn = false
-                        print("isCheckedIn = false")
-                    }
-                case .failure(_):
-                    alertItem = AlertContext.unableToGetCheckInStatus
+        Task {
+            do{
+                let record = try await CloudKitManager.shared.fetchRecord(id: profileRecordID)
+                if let reference = record[Profile.kIsCheckedIn] as? CKRecord.Reference {
+                    isCheckedIn  = reference.recordID == location.id
+                }else{
+                    isCheckedIn = false
                 }
+            }catch{
+                alertItem = AlertContext.unableToGetCheckInStatus
             }
         }
     }
     
-    func updateCheckInStatus(checkInStatus: CheckInStatus) {
+    func updateCheckInStatus(to checkInStatus: CheckInStatus) {
         guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
-            return alertItem          = AlertContext.unableToGetProfile
+            alertItem = AlertContext.unableToGetProfile
+            return
         }
         
-        CloudKitManager.shared.fetchRecord(id: profileRecordID) { [self] result in
-            switch result {
-            case .success(let record):
-                DispatchQueue.main.async { [self] in
-                    switch checkInStatus {
+        showLoadingView()
+        
+        Task {
+            do {
+                let record = try await CloudKitManager.shared.fetchRecord(id: profileRecordID)
+                switch checkInStatus {
                     case .checkedIn:
                         record[Profile.kIsCheckedIn] = CKRecord.Reference(recordID: location.id, action: .none)
-                        record[Profile.kIsCheckedInNilCheck] = 1
+                    record[Profile.kIsCheckedInNilCheck] = 1
                     case .checkedOut:
                         record[Profile.kIsCheckedIn] = nil
                         record[Profile.kIsCheckedInNilCheck] = nil
-                    }
                 }
                 
-                //                CloudKitManager.shared.save(record: record) { result in
-                //                    DispatchQueue.main.async { [self] in
-                //                        switch result {
-                //                        case .success(let record):
-                //                            let profile = Profile(record: record)
-                //                            switch checkInStatus {
-                //                            case .checkedIn:
-                //                                self.checkedProfiles.append(profile)
-                //                            case .checkedOut:
-                //                                self.checkedProfiles.removeAll(where: { $0.id == profile.id })
-                //                            }
-                //
-                //                            isCheckedIn.toggle()
-                //
-                //                        case .failure(_):
-                //                            alertItem = AlertContext.profileUpdatingFailure
-                //                        }
-                //                    }
-                //                }
-                Task {
-                    let profile = try await CloudKitManager.shared.getCheckedInProfiles(for: location.id)
-                    switch checkInStatus {
+                let savedRecord = try await CloudKitManager.shared.save(for: record)
+                let profile = Profile(record: savedRecord)
+                switch checkInStatus {
                     case .checkedIn:
-                        self.checkedProfiles.append(contentsOf: profile)
+                    checkedProfiles.append(profile)
                     case .checkedOut:
-                        self.checkedProfiles.removeAll(where: { $0.id == profile })
-                    }
+                    checkedProfiles.removeAll(where:{ $0.id == profile.id })
                 }
-            case .failure(_):
+                
+                isCheckedIn.toggle()
+                hideLoadingView()
+            } catch {
                 alertItem = AlertContext.unableToGetCheckInorOut
             }
         }

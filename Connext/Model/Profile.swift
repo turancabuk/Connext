@@ -33,7 +33,7 @@ struct Profile: Identifiable {
     }
     
     var avatarImage: UIImage {
-        guard let avatar = avatar else {return PlaceHolderImage.avatar}
+        guard let avatar else {return PlaceHolderImage.avatar}
         return avatar.convertToUIImage(dimension: .square)
     }
 }

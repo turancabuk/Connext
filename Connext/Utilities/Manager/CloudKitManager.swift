@@ -26,13 +26,13 @@ final class CloudKitManager {
         userRecord = record
         
         if let profileReference  = record["ConnextProfile"] as? CKRecord.Reference {
-            self.profileRecordID = profileReference.recordID
+            profileRecordID = profileReference.recordID
         }
     }
     
     func getLocations() async throws -> [Location] {
         let sortDescriptor = NSSortDescriptor(key: Location.kName, ascending: true)
-        let query = CKQuery(recordType: RecordType.location, predicate: NSPredicate(value: true))
+        let query          = CKQuery(recordType: RecordType.location, predicate: NSPredicate(value: true))
         query.sortDescriptors = [sortDescriptor]
         
         
@@ -61,11 +61,39 @@ final class CloudKitManager {
         
         for record in records {
             let profile = Profile(record: record)
-            guard let locationReference = profile.isCheckedIn else { continue }
+            guard let locationReference = record[Profile.kIsCheckedIn] as? CKRecord.Reference else { continue }
             checkedInProfiles[locationReference.recordID, default: []].append(profile)
         }
-        guard let cursor = cursor else { return checkedInProfiles }
-        return [:]
+        guard let cursor else { return checkedInProfiles }
+        
+        do {
+            return try await continueWithCheckedInProfilesDict(cursor: cursor, dictionary: checkedInProfiles)
+        } catch {
+            throw error
+        }
+    }
+    
+    private func continueWithCheckedInProfilesDict(cursor: CKQueryOperation.Cursor,
+                                                   dictionary: [CKRecord.ID: [Profile]]) async throws -> [CKRecord.ID: [Profile]] {
+        
+        var checkedInProfiles = dictionary
+        
+        let (matchResults, cursor) = try await container.publicCloudDatabase.records(continuingMatchFrom: cursor)
+        let records = matchResults.compactMap { _, result in try? result.get() }
+        
+        for record in records {
+            let profile = Profile(record: record)
+            guard let locationReference = record[Profile.kIsCheckedIn] as? CKRecord.Reference else { continue }
+            checkedInProfiles[locationReference.recordID, default: []].append(profile)
+        }
+        
+        guard let cursor else { return checkedInProfiles }
+
+        do {
+            return try await continueWithCheckedInProfilesDict(cursor: cursor, dictionary: checkedInProfiles)
+        } catch {
+            throw error
+        }
     }
     
     func getCheckedInProfilesCount() async throws -> [CKRecord.ID : Int] {
