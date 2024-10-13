@@ -16,24 +16,28 @@ struct LocationMapView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: locationManager.locations) { location in
-                MapAnnotation(coordinate: location.location.coordinate) {
-                    MapAnnotationView(location: location, number: viewModel.checkedInProfiles[location.id, default: 0])
-                        .onTapGesture {
-                            locationManager.selectedLocation = location
-                            viewModel.isShowingDetailView = true
-                        }
+            if viewModel.isLoadingView{
+                LoadingView()
+            }else{
+                Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: locationManager.locations) { location in
+                    MapAnnotation(coordinate: location.location.coordinate) {
+                        MapAnnotationView(location: location, number: viewModel.checkedInProfiles[location.id, default: 0])
+                            .onTapGesture {
+                                locationManager.selectedLocation = location
+                                viewModel.isShowingDetailView = true
+                            }
+                    }
                 }
+                .accentColor(.orange)
+                Image("connext.transparent")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 40)
+                    .padding(.top)
             }
-            .accentColor(.orange)
-            Image("connext.transparent")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 40)
-                .padding(.top)
         }
         .sheet(isPresented: $viewModel.isShowingDetailView, content: {
-            NavigationView {
+            NavigationStack {
                 LocationDetailView(viewModel: LocationDetailViewModel(location: locationManager.selectedLocation!))
                     .toolbar {Button("Close") {viewModel.isShowingDetailView = false}}
             }

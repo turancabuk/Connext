@@ -16,7 +16,7 @@ struct LocationCell: View {
         HStack(){
             Image(uiImage: location.squareImage)
                 .resizable()
-                .scaledToFit()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 80, height: 80)
                 .clipShape(.circle)
             VStack(alignment: .leading){

@@ -47,7 +47,7 @@ struct LocationDetailView: View {
                         }
                         if let _ = CloudKitManager.shared.profileRecordID {
                             Button{
-                                viewModel.updateCheckInStatus(checkInStatus: viewModel.isCheckedIn ? .checkedOut : .checkedIn)
+                                viewModel.updateCheckInStatus(to: viewModel.isCheckedIn ? .checkedOut : .checkedIn)
                             }label: {
                                 LocationActionButton(color: viewModel.isCheckedIn ? .red : .blue, imageName: viewModel.isCheckedIn ? "person.fill.xmark" : "person.fill.checkmark")
                             }
@@ -120,7 +120,7 @@ fileprivate struct LocationActionButton: View {
             Circle()
                 .foregroundColor(color)
                 .frame(width: 60, height: 60)
-            
+                .shadow(color: .black, radius: 2)
             Image(systemName: imageName)
                 .resizable()
                 .scaledToFit()
@@ -155,6 +155,7 @@ fileprivate struct BannerImageView: View {
     var body: some View {
         Image(uiImage: image)
             .resizable()
+            .aspectRatio(contentMode: .fit)
             .scaledToFill()
             .frame(height: 120)
     }
@@ -177,15 +178,15 @@ fileprivate struct DescriptionView: View {
     
     var body: some View {
         Text(text)
-            .lineLimit(3)
+            .lineLimit(12)
             .minimumScaleFactor(0.75)
-            .frame(height: 70)
-            .padding(.horizontal)
+            .frame(height: 120)
+            .padding(.horizontal, 8)
     }
 }
 
 #Preview  {
-    NavigationView {
+    NavigationStack {
         LocationDetailView(viewModel: LocationDetailViewModel(location: Location(record: MockData.location)))
     }
 }

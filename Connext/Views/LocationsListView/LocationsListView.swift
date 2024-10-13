@@ -13,7 +13,7 @@ struct LocationsListView: View {
     @StateObject private var viewmodel              = LocationsListViewModel()
     
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 if viewmodel.isLoading {
                     ZStack{
@@ -24,7 +24,7 @@ struct LocationsListView: View {
                 }else {
                     List{
                         ForEach(locationManager.locations) { location in
-                            NavigationLink(destination: LocationDetailView(viewModel: LocationDetailViewModel(location: location))) {
+                            NavigationLink(value: location) {
                                 LocationCell(location: location,profiles: viewmodel.checkedInProfiles[location.id, default: []])
                             }
                         }
@@ -32,6 +32,9 @@ struct LocationsListView: View {
                 }
             }
             .navigationTitle("Grub Spots")
+            .navigationDestination(for: Location.self, destination: { location in
+                LocationDetailView(viewModel: LocationDetailViewModel(location: location))
+            })
             .task {viewmodel.getCheckedInProfilesDictionary()}
             .alert(item: $viewmodel.alertItem, content: {$0.alert})
         }

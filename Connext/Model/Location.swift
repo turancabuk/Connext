@@ -8,7 +8,7 @@
 import CloudKit
 import UIKit
 
-struct Location: Identifiable {
+struct Location: Identifiable, Hashable {
     static let kAdress      = "adress"
     static let kDescription = "description"
     static let kName        = "name"
@@ -36,12 +36,12 @@ struct Location: Identifiable {
     }
     
     var squareImage: UIImage {
-        guard let asset = squareAsset else {return PlaceHolderImage.square}
-        return asset.convertToUIImage(dimension: .square)
+        guard let squareAsset else {return PlaceHolderImage.square}
+        return squareAsset.convertToUIImage(dimension: .square)
     }
 
     var bannerImage: UIImage {
-        guard let asset = bannerAsset else {return PlaceHolderImage.banner}
-        return asset.convertToUIImage(dimension: .banner)
+        guard let bannerAsset else {return PlaceHolderImage.banner}
+        return bannerAsset.convertToUIImage(dimension: .banner)
     }
 }
