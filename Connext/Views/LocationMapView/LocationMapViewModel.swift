@@ -17,8 +17,8 @@ extension LocationMapView {
         @Published var isShowingDetailView  = false
         @Published var isLoadingView        = false
         let deviceLocationManager           = CLLocationManager()
-        @Published var region               = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.331516,longitude: -121.891054),
-                                                                 span: MKCoordinateSpan(latitudeDelta: 0.01,longitudeDelta: 0.01))
+        @Published var region               = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.067204,longitude: 29.014965),
+                                                                 span: MKCoordinateSpan(latitudeDelta: 0.3,longitudeDelta: 0.3))
         
         
         override init () {
