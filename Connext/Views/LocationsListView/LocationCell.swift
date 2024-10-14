@@ -19,7 +19,8 @@ struct LocationCell: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 80, height: 80)
                 .clipShape(.circle)
-            VStack(alignment: .leading){
+                .padding(.horizontal, 8)
+            VStack(alignment: .leading, spacing: 16){
                 Text(location.name)
                     .font(.title2)
                     .fontWeight(.semibold)
@@ -31,7 +32,7 @@ struct LocationCell: View {
                     HStack{
                         ForEach(profiles.indices, id: \.self) { index in
                             if index <= 3 {
-                                AvatarView(image: profiles[index].avatarImage, size: 42)
+                                AvatarView(image: profiles[index].avatarImage, size: 32)
                             }else if index == 4 {
                                 AdditionalProfilesView(number: self.profiles.count - 4)
                             }
@@ -49,7 +50,7 @@ fileprivate struct AdditionalProfilesView: View {
     
     var body: some View {
         Text("+\(number)")
-            .frame(width: 42, height: 42)
+            .frame(width: 32, height: 32)
             .bold()
             .background(.brandPrimary)
             .foregroundColor(.white)
